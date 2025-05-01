@@ -6,6 +6,10 @@ import allure
 import faker
 import random
 
+from time import sleep
+
+from selenium.common import JavascriptException
+
 
 def allure_attach_screenshot(driver):
     """Attach a screenshot to the Allure report."""
@@ -69,3 +73,25 @@ def get_fake_demographics():
         raise
 
     return demographics
+
+
+def scroll_down_to_bottom(driver):
+    """Scroll down to the bottom of the page. Load the page if not loaded."""
+    log = custom_logger()
+    try:
+        last_height = driver.execute_script("return document.body.scrollHeight")
+        while True:
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            sleep(2)  # Adjust the sleep time as needed
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                log.info("Reached the bottom of the page.")
+                break
+            last_height = new_height
+            log.info(f"Scrolling down... New height: {new_height}")
+    except JavascriptException as e:
+        log.error(f"JavaScript error while scrolling: {e}")
+        raise
+    except Exception as e:
+        log.error(f"Error scrolling down: {e}")
+        raise
