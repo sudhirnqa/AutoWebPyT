@@ -1,3 +1,4 @@
+import json
 import os
 
 from Utilities import common_utils
@@ -56,3 +57,28 @@ def delete_file(file_path):
         print(f"Error deleting file: {e}")
         log.error(f"Error deleting file: {e}")
         return False
+
+def load_data_from_json(json_file):
+    """Load data from a JSON file."""
+    log = common_utils.custom_logger()
+    try:
+        with open(json_file, 'r') as file:
+            data = json.load(file)
+            log.info(f"Data loaded from JSON: {data}")
+            return data
+    except FileNotFoundError:
+        print("File not found: data.json")
+        log.error("File not found: data.json")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        log.error(f"Error decoding JSON: {e}")
+        return None
+    except Exception as e:
+        print(f"Error loading data from JSON: {e}")
+        log.error(f"Error loading data from JSON: {e}")
+        return None
+
+# testdata_list = load_data_from_json('../Testdata/login_data.json')['invalid_login']
+# test_data_tuple = [tuple(dictionary.values()) for dictionary in testdata_list]
+# print(test_data_tuple)
