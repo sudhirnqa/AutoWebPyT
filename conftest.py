@@ -72,7 +72,7 @@ def invoke_browser(browser_and_env):
     driver.get(base_url)
     log.info(f"Navigated to URL: {base_url}")
 
-    yield driver
+    yield driver, base_url
     if driver is not None:
         driver.quit()
         log.info(f"Driver quit: {driver}")
