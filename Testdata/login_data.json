@@ -1,0 +1,14 @@
+{
+  "invalid_login": [
+    {
+      "username": "testfnln8@gmail.com",
+      "password": "1234",
+      "error_message": "Your email or password is incorrect!"
+    },
+    {
+      "username": "testfnln9@gmail.com",
+      "password": "1256",
+      "error_message": "Your email or password is incorrect"
+    }
+  ]
+}
