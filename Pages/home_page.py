@@ -39,6 +39,13 @@ class HomePage(BasePage):
         return self.account_deleted_header.text
 
     @property
+    def account_deleted_message(self):
+        return BaseElement(self.driver, home_page_locators.account_deleted_message)
+
+    def get_account_deleted_message_text(self):
+        return self.account_deleted_message.text
+
+    @property
     def continue_btn_on_delete_account(self):
         return BaseElement(self.driver, home_page_locators.continue_btn)
 

@@ -58,6 +58,7 @@ def delete_file(file_path):
         log.error(f"Error deleting file: {e}")
         return False
 
+
 def load_data_from_json(json_file):
     """Load data from a JSON file."""
     log = common_utils.custom_logger()
@@ -78,7 +79,3 @@ def load_data_from_json(json_file):
         print(f"Error loading data from JSON: {e}")
         log.error(f"Error loading data from JSON: {e}")
         return None
-
-# testdata_list = load_data_from_json('../Testdata/login_data.json')['invalid_login']
-# test_data_tuple = [tuple(dictionary.values()) for dictionary in testdata_list]
-# print(test_data_tuple)
