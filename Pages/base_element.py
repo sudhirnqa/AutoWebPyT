@@ -37,6 +37,7 @@ class BaseElement(object):
     def click(self):
         log = custom_logger()
         try:
+            self.scroll_to_element()
             self.wait.until(ec.element_to_be_clickable(self.locator)).click()
             log.info(f"Element clicked: {self.locator}")
         except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
@@ -52,6 +53,7 @@ class BaseElement(object):
     def enter_text(self, text):
         log = custom_logger()
         try:
+            self.scroll_to_element()
             self.element.send_keys(text)
             log.info(f"Text entered: '{text}' in {self.locator}")
         except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
@@ -111,6 +113,7 @@ class BaseElement(object):
     def select_dropdown(self, select_by_type, value):
         log = custom_logger()
         try:
+            self.scroll_to_element()
             select = Select(self.element)
             log.info(f"Dropdown Select on : {self.locator}")
             select_by_type = select_by_type.lower()
