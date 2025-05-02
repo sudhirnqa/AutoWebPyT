@@ -1,65 +1,63 @@
-
-from selenium.webdriver.common.by import By
-
-from Locators import Login_page_locators
+from Locators import login_page_locators, home_page_locators
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
+from Pages.home_page import HomePage
 
 
 class LoginPage(BasePage):
 
     @property
     def signup_form_header(self):
-        return BaseElement(self.driver, Login_page_locators.signup_form_header)
+        return BaseElement(self.driver, login_page_locators.signup_form_header)
 
     def get_signup_form_header_text(self):
         return self.signup_form_header.text
 
     @property
     def signup_form_name(self):
-        return BaseElement(self.driver, Login_page_locators.signup_form_name)
+        return BaseElement(self.driver, login_page_locators.signup_form_name)
 
     def enter_signup_name(self, name):
         self.signup_form_name.enter_text(name)
 
     @property
     def signup_form_email(self):
-        return BaseElement(self.driver, Login_page_locators.signup_form_email)
+        return BaseElement(self.driver, login_page_locators.signup_form_email)
 
     def enter_signup_email(self, email):
         self.signup_form_email.enter_text(email)
 
     @property
     def signup_btn(self):
-        return BaseElement(self.driver, Login_page_locators.signup_btn)
+        return BaseElement(self.driver, login_page_locators.signup_btn)
 
     def click_signup_btn(self):
         self.signup_btn.click()
 
     @property
     def login_email_field(self):
-        return BaseElement(self.driver, Login_page_locators.login_form_email)
+        return BaseElement(self.driver, login_page_locators.login_form_email)
 
     def enter_login_email(self, email):
         self.login_email_field.enter_text(email)
 
     @property
     def login_in_password_field(self):
-        return BaseElement(self.driver, Login_page_locators.login_form_password)
+        return BaseElement(self.driver, login_page_locators.login_form_password)
 
     def enter_login_password(self, password):
         self.login_in_password_field.enter_text(password)
 
     @property
     def login_btn(self):
-        return BaseElement(self.driver, Login_page_locators.login_btn)
+        return BaseElement(self.driver, login_page_locators.login_btn)
 
     def click_login_btn(self):
         self.login_btn.click()
 
     @property
     def login_form_header(self):
-        return BaseElement(self.driver, Login_page_locators.login_form_header)
+        return BaseElement(self.driver, login_page_locators.login_form_header)
 
     def get_login_form_header_text(self):
         return self.login_form_header.text
@@ -69,7 +67,7 @@ class LoginPage(BasePage):
 
     @property
     def invalid_login_error(self):
-        return BaseElement(self.driver, Login_page_locators.invalid_login_error)
+        return BaseElement(self.driver, login_page_locators.invalid_login_error)
 
     def get_invalid_login_error_text(self):
         return self.invalid_login_error.text
@@ -78,6 +76,11 @@ class LoginPage(BasePage):
         self.enter_login_email(email)
         self.enter_login_password(password)
         self.login_btn.click()
+        if not self.invalid_login_error.is_element_displayed():
+            home_page = HomePage(self.driver)
+            home_page.wait_for_page_to_load(home_page_locators.account_owner)
+            return home_page
+        return None
 
     def fill_signup_form_and_click_signup_btn(self, name, email):
         self.enter_signup_name(name)

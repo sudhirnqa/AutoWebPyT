@@ -10,5 +10,11 @@
       "password": "1256",
       "error_message": "Your email or password is incorrect"
     }
+  ],
+  "valid_login": [
+    {
+      "username": "testfnln8@gmail.com",
+      "password": "123"
+    }
   ]
 }

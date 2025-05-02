@@ -11,6 +11,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 
 from Utilities.common_utils import custom_logger
+from Utilities.custom_assert import CustomAssert
 
 global driver
 
@@ -32,6 +33,7 @@ def invoke_browser(browser_and_env):
     """Fixture to initialize and yield the browser driver."""
     global driver
     log = custom_logger()
+    log.info("Setting up test session")
     browser = browser_and_env[0].lower()
     base_url = {
         'dev': 'https://dev.automationexercise.com/',
@@ -76,6 +78,7 @@ def invoke_browser(browser_and_env):
     if driver is not None:
         driver.quit()
         log.info(f"Driver quit: {driver}")
+    log.info("Tearing down test session")
 
 
 @hookimpl(hookwrapper=True)
@@ -137,3 +140,17 @@ def pytest_html_report_title(report):
     now = datetime.now().strftime("%m-%d-%Y-%H:%S")
     report.title = f"Test Automation Report - {now}"
     log.info(f"Report title set: {report.title}")
+
+
+@fixture(scope='class', autouse=True)
+def setup_teardown_class(request, invoke_browser):
+    """Fixture to set up and tear down test class."""
+    log = custom_logger()
+    log.info("Setting up test class")
+    driver, base_url = invoke_browser
+    soft_assert = CustomAssert(driver)
+    request.cls.driver = driver
+    request.cls.base_url = base_url
+    request.cls.soft_assert = soft_assert
+    yield
+    log.info("Tearing down test class")
