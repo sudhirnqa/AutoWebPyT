@@ -1,7 +1,8 @@
-from Locators import login_page_locators, home_page_locators
+from Locators import login_page_locators, home_page_locators, signup_page_locators
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
 from Pages.home_page import HomePage
+from Pages.signup_page import SignupPage
 
 
 class LoginPage(BasePage):
@@ -72,10 +73,17 @@ class LoginPage(BasePage):
     def get_invalid_login_error_text(self):
         return self.invalid_login_error.text
 
+    @property
+    def invalid_signup_error(self):
+        return BaseElement(self.driver, login_page_locators.invalid_signup_error)
+
+    def get_invalid_signup_error_text(self):
+        return self.invalid_signup_error.text
+
     def fill_login_form_and_click_login_btn(self, email, password):
         self.enter_login_email(email)
         self.enter_login_password(password)
-        self.login_btn.click()
+        self.click_login_btn()
         if not self.invalid_login_error.is_element_displayed():
             home_page = HomePage(self.driver)
             home_page.wait_for_page_to_load(home_page_locators.account_owner)
@@ -86,3 +94,8 @@ class LoginPage(BasePage):
         self.enter_signup_name(name)
         self.enter_signup_email(email)
         self.signup_btn.click()
+        if not self.invalid_signup_error.is_element_displayed():
+            signup_page = SignupPage(self.driver)
+            signup_page.wait_for_page_to_load(signup_page_locators.signup_page_header)
+            return signup_page
+        return None

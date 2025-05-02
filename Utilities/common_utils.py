@@ -65,6 +65,8 @@ def get_fake_demographics():
             "company_name": fake.company(),
         }
 
+        demographics['name'] = f"{demographics["first_name"]} {demographics["last_name"]}"
+
         # Log the generated demographics
         log.info(f"Generated demographics: {demographics}")
 

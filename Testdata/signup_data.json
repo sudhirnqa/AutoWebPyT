@@ -1,0 +1,9 @@
+{
+  "invalid_signup": [
+    {
+      "name": "test firstname",
+      "username": "testfnln8@gmail.com",
+      "error_message": "Email Address already exist!"
+    }
+  ]
+}
