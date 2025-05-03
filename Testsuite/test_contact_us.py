@@ -5,7 +5,7 @@ from Utilities.common_utils import data_faker
 
 
 @mark.usefixtures("setup_teardown_class")
-class TestLogin:
+class TestContactUS:
     """Test class for login functionality."""
 
     @fixture(autouse=True)
