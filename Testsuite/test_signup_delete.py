@@ -2,7 +2,7 @@ from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
 from Pages.login_page import LoginPage
-from Utilities.common_utils import get_fake_demographics
+from Utilities.common_utils import test_data_faker
 
 
 @mark.usefixtures("setup_teardown_class")
@@ -28,11 +28,11 @@ class TestSignup:
         self.soft_assert.finalize()
 
     def test_valid_user_signup(self, setup_teardown_test):
-        test_data = get_fake_demographics()
+        test_data = test_data_faker()
         login_page = setup_teardown_test
         signup_page = login_page.fill_signup_form_and_click_signup_btn(test_data["name"], test_data["email"])
 
-        home_page_title = signup_page.get_title()
+        home_page_title = signup_page.get_title
         self.soft_assert.assert_equal(home_page_title, "Automation Exercise - Signup",
                                       f"Expected title 'Automation Exercise - Signup', but got '{home_page_title}'")
 
@@ -50,12 +50,12 @@ class TestSignup:
                                       "Congratulations! Your new account has been successfully created!",
                                       "Account created message mismatch.")
         home_page = signup_page.click_continue_btn()
-        self.soft_assert.assert_equal(home_page.get_title(), "Automation Exercise",
-                                      "Expected title 'Automation Exercise', but got '{home_page.get_title()}'")
+        self.soft_assert.assert_equal(home_page.get_title, "Automation Exercise",
+                                      f"Expected title 'Automation Exercise', but got '{home_page.get_title}'")
         self.soft_assert.finalize()
 
     def test_delete_user_account(self, setup_teardown_test):
-        test_data = get_fake_demographics()
+        test_data = test_data_faker()
         login_page = setup_teardown_test
         signup_page = login_page.fill_signup_form_and_click_signup_btn(test_data["name"], test_data["email"])
         signup_page.fill_signup_form_and_click_continue_btn(test_data)
@@ -66,6 +66,6 @@ class TestSignup:
         self.soft_assert.assert_in("permanently deleted!", home_page.get_account_deleted_message_text(),
                                    "Account deleted message mismatch.")
         home_page.click_continue_btn_on_delete_account()
-        self.soft_assert.assert_equal(home_page.get_title(), "Automation Exercise",
-                                      "Expected title 'Automation Exercise', but got '{home_page.get_title()}'")
+        self.soft_assert.assert_equal(home_page.get_title, "Automation Exercise",
+                                      f"Expected title 'Automation Exercise', but got '{home_page.get_title}'")
         self.soft_assert.finalize()

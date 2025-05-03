@@ -36,7 +36,7 @@ class TestLogin:
     def test_valid_user_login(self, email, password, setup_teardown_test):
         login_page = setup_teardown_test
         home_page = login_page.fill_login_form_and_click_login_btn(email, password)
-        home_page_title = home_page.get_title()
+        home_page_title = home_page.get_title
         self.soft_assert.assert_equal(home_page_title, "Automation Exercise",
                                       f"Expected title 'Automation Exercise', but got '{home_page_title}'")
         self.soft_assert.finalize()
@@ -46,7 +46,7 @@ class TestLogin:
         login_page = setup_teardown_test
         home_page = login_page.fill_login_form_and_click_login_btn(email, password)
         home_page.click_sign_out_link()
-        login_page_title = login_page.get_title()
+        login_page_title = login_page.get_title
         self.soft_assert.assert_equal(login_page_title, "Automation Exercise - Signup / Login",
                                       f"Expected title 'Automation Exercise - Signup / Login', but got '{login_page_title}'")
         current_url = login_page.get_current_url()
