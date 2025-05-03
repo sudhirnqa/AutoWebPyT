@@ -45,7 +45,7 @@ def custom_logger(log_level=logging.DEBUG):
     return logger
 
 
-def test_data_faker():
+def data_faker():
     """Generate fake demographic data."""
     log = custom_logger()
     try:
