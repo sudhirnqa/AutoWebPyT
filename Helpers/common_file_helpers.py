@@ -40,6 +40,17 @@ def get_file_name(file_path):
     return None
 
 
+def get_absolute_file_path(relative_file_path):
+    """Get the full path of a file."""
+    log = common_utils.custom_logger()
+    if os.path.exists(relative_file_path):
+        full_path = os.path.abspath(relative_file_path)
+        log.info(f"Full path: {full_path}")
+        return full_path
+    log.error(f"File not found: {relative_file_path}")
+    return None
+
+
 def delete_file(file_path):
     """Delete a file."""
     log = common_utils.custom_logger()
