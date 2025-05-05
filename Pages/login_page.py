@@ -1,6 +1,7 @@
-from Locators import login_page_locators, home_page_locators, signup_page_locators
+from Locators import login_page_locators, home_page_locators, signup_page_locators, case_page_locators
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
+from Pages.cases_page import TestCasesPage
 from Pages.home_page import HomePage
 from Pages.signup_page import SignupPage
 
@@ -99,3 +100,13 @@ class LoginPage(BasePage):
             signup_page.wait_for_page_to_load(signup_page_locators.signup_page_header)
             return signup_page
         return None
+
+    @property
+    def test_cases_link(self):
+        return BaseElement(self.driver, login_page_locators.test_cases_link)
+
+    def click_test_cases_link(self):
+        self.test_cases_link.click()
+        test_cases_page = TestCasesPage(self.driver)
+        test_cases_page.wait_for_page_to_load(case_page_locators.test_case_header)
+        return test_cases_page

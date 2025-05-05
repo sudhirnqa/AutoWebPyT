@@ -16,15 +16,31 @@ class BaseElement(object):
         self.wait = WebDriverWait(self.driver, 10)
         self.action = ActionChains(self.driver)
         self.element = None
-        self.find()
+        self.find_element()
+        self.elements = None
+        self.find_elements()
 
-    def find(self):
+    def find_element(self):
         log = custom_logger()
         try:
             self.element = self.wait.until(ec.presence_of_element_located(self.locator))
             log.info(f"Element found: {self.locator}")
         except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
                 InvalidSelectorException, StaleElementReferenceException,) as e:
+            print(f"Error finding element: {self.locator} - {e}")
+            log.error(f"Error finding element: {self.locator} - {e}")
+            allure_attach_screenshot(self.driver)
+        except Exception as e:
+            print(f"Unexpected error finding element: {self.locator} - {e}")
+            log.error(f"Unexpected error finding element: {self.locator} - {e}")
+            allure_attach_screenshot(self.driver)
+
+    def find_elements(self):
+        log = custom_logger()
+        try:
+            self.elements = self.wait.until(ec.presence_of_all_elements_located(self.locator))
+            log.info(f"Elements found: {self.locator}")
+        except StaleElementReferenceException as e:
             print(f"Error finding element: {self.locator} - {e}")
             log.error(f"Error finding element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -91,6 +107,16 @@ class BaseElement(object):
         else:
             log.error(f"No text found in element: {self.locator}")
         return text_value
+
+    def elements_text(self):
+        log = custom_logger()
+        text_list = []
+        if len(self.elements) > 0:
+            text_list = [element.text for element in self.elements]
+            log.info(f"Text found on elements: '{text_list}' from element: {self.locator}")
+        else:
+            log.error(f"No elements found: {self.locator}")
+        return text_list
 
     def is_element_displayed(self):
         log = custom_logger()
