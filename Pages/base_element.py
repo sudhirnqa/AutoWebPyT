@@ -118,6 +118,54 @@ class BaseElement(object):
             log.error(f"No elements found: {self.locator}")
         return text_list
 
+    def click_element_by_text(self, target_text):
+        log = custom_logger()
+        if len(self.elements) > 0:
+            for element in self.elements:
+                if element.text == target_text:
+                    self.action.move_to_element(element).click().perform()
+                    log.info(
+                        f"Text on element found and clicking on it: '{element.text}' from elements: {self.locator}")
+                    break
+        else:
+            log.error(f"No elements found: {self.locator}")
+
+    def get_index_of_element_by_text(self, target_text):
+        log = custom_logger()
+        if len(self.elements) > 0:
+            for i, element in enumerate(self.elements):
+                if element.text == target_text:
+                    log.info(
+                        f"Text on element found {element.text} and returning the index: '{i}' from elements: {self.locator}")
+                    return i
+        else:
+            log.error(f"No elements found: {self.locator}")
+            return None
+
+    def get_element_text_by_index(self, index):
+        log = custom_logger()
+        if len(self.elements) > 0:
+            for i, element in enumerate(self.elements):
+                if i == index:
+                    log.info(
+                        f"Returning text on index {i} is {element.text} from elements: {self.locator}")
+                    return element.text
+        else:
+            log.error(f"No elements found: {self.locator}")
+            return None
+
+    def click_element_by_index(self, index):
+        log = custom_logger()
+        if len(self.elements) > 0:
+            for i, element in enumerate(self.elements):
+                if i == index:
+                    self.action.move_to_element(element).click().perform()
+                    log.info(
+                        f"Clicking on index {i} is {element.text} from elements: {self.locator}")
+                    break
+        else:
+            log.error(f"No elements found: {self.locator}")
+
     def is_element_displayed(self):
         log = custom_logger()
         try:

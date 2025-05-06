@@ -74,7 +74,7 @@ def load_data_from_json(json_file):
     """Load data from a JSON file."""
     log = common_utils.custom_logger()
     try:
-        with open(json_file, 'r') as file:
+        with open(json_file, 'r', encoding='utf-8') as file:
             data = json.load(file)
             log.info(f"Data loaded from JSON: {data}")
             return data
