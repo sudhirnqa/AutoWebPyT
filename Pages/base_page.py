@@ -1,4 +1,6 @@
-from selenium.common import NoAlertPresentException
+from selenium.common import NoAlertPresentException, NoSuchWindowException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from Pages.base_element import BaseElement
 from Utilities.common_utils import custom_logger, allure_attach_screenshot
@@ -9,6 +11,7 @@ class BasePage(object):
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
 
     def go_to(self, url):
         self.driver.get(url)
@@ -92,3 +95,34 @@ class BasePage(object):
             print(f"Unexpected error entering text in alert: {e}")
             log.error(f"Unexpected error entering text in alert: {e}")
             allure_attach_screenshot(self.driver)
+
+    def close_other_tabs_and_switch_to_parent_tab(self):
+        log = custom_logger()
+        try:
+            window_count = self.get_windows_count()
+            windows = self.driver.window_handles
+            if window_count > 1:
+                for window in windows[1:]:
+                    self.driver.switch_to.window(window)
+                    self.driver.close()
+                    log.info(f"Switched to tab: {window} and closing it")
+                self.driver.switch_to.window(windows[0])
+                log.info(f"Switched to tab: {windows[0]}")
+            else:
+                self.driver.switch_to.window(windows[0])
+                log.info(f"No new tab opened...")
+        except NoSuchWindowException as e:
+            log.error(f"Exception on switching to parent tab: {e}")
+        except Exception as e:
+            log.error(f"Exception on switching to parent tab: {e}")
+
+    def get_windows_count(self):
+        log = custom_logger()
+        try:
+            self.wait.until(EC.new_window_is_opened(self.driver.current_window_handle))
+        except (NoSuchWindowException, Exception) as e:
+            log.error(f"No new window opened {e}")
+        finally:
+            windows = self.driver.window_handles
+            log.info(f"Windows count: {len(windows)}")
+            return len(windows)

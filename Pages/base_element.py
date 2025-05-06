@@ -161,7 +161,7 @@ class BaseElement(object):
                 if i == index:
                     self.action.move_to_element(element).click().perform()
                     log.info(
-                        f"Clicking on index {i} is {element.text} from elements: {self.locator}")
+                        f"Clicking the index {i} on elements: {self.locator}")
                     break
         else:
             log.error(f"No elements found: {self.locator}")

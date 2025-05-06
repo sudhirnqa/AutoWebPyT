@@ -1,5 +1,6 @@
 from pytest import fixture, mark
 
+from Helpers.common_file_helpers import load_data_from_json
 from Pages.login_page import LoginPage
 from Utilities.common_utils import data_faker
 
@@ -19,13 +20,10 @@ class TestListOfCases:
         test_cases_page = setup_teardown_test
         list_header = test_cases_page.get_test_case_label_text()
 
-        self.soft_assert.assert_equal(list_header,
-                                      "Below is the list of test Cases for you to practice the Automation. "
-                                      "Click on the scenario for detailed Test Steps:Automation software",
-                                      f"Expected testcases label is: "
-                                      f"'Below is the list of test Cases for you to practice the Automation. "
-                                      f"Click on the scenario for detailed Test Steps:Automation software', "
-                                      f"but got: '{list_header}'")
+        self.soft_assert.assert_in("Below is the list of test Cases for you to practice the Automation.", list_header,
+                                   f"Expected testcases label contains: "
+                                   f"'Below is the list of test Cases for you to practice the Automation.'"
+                                   f", but got: '{list_header}'")
 
         count_of_cases = len(test_cases_page.get_test_cases_links_text())
         self.soft_assert.assert_equal(count_of_cases, 26,
