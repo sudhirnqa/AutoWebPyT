@@ -8,13 +8,7 @@ from Pages.login_page import LoginPage
 class TestLogin:
     """Test class for login functionality."""
 
-    @fixture(autouse=True)
-    def setup_teardown_test(self):
-        login_page = LoginPage(self.driver)
-        login_page.go_to(self.base_url + "login")
-        yield login_page
-        self.driver.delete_all_cookies()
-
+    # Parameterize Testdata
     # Test data for invalid login testcases
     invalid_login = load_data_from_json('.\\Testdata\\login_data.json')['invalid_login']
     invalid_login_test_data = [tuple(data_dict.values()) for data_dict in invalid_login]
@@ -22,6 +16,13 @@ class TestLogin:
     # Test data for valid login testcases
     valid_login = load_data_from_json('.\\Testdata\\login_data.json')['valid_login']
     valid_login_test_data = [tuple(data_dict.values()) for data_dict in valid_login]
+
+    @fixture(autouse=True)
+    def setup_teardown_test(self):
+        login_page = LoginPage(self.driver)
+        login_page.go_to(self.base_url + "login")
+        yield login_page
+        self.driver.delete_all_cookies()
 
     @mark.xfail(reason="This test is expected to fail for one of the invalid login cases.")
     @mark.parametrize("email, password, response", invalid_login_test_data)

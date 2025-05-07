@@ -8,6 +8,10 @@ from Pages.login_page import LoginPage
 class TestProducts:
     """Test class for login functionality."""
 
+    # Parameterize testdata
+    product_to_search_list = load_data_from_json("./Testdata/products_data.json")["product_to_search"]
+    product_to_search = [tuple(product_dict.values()) for product_dict in product_to_search_list]
+
     @fixture(autouse=True)
     def setup_teardown_test(self):
         login_page = LoginPage(self.driver)
@@ -15,7 +19,6 @@ class TestProducts:
         yield product_page
         self.driver.delete_all_cookies()
 
-    @mark.xfail(reason="This test is expected to fail as a defect in the Application")
     def test_product_listing(self, setup_teardown_test):
         product_page = setup_teardown_test
         actual_products = product_page.get_products_as_dict()
@@ -29,4 +32,12 @@ class TestProducts:
         product_details_page = product_page.click_view_product(product["name"])
         product_detail = product_details_page.get_product_details()
         self.soft_assert.assert_equal(product_detail, product)
+        self.soft_assert.finalize()
+
+    @mark.parametrize("search_term, search_result", product_to_search)
+    def test_product_search_results(self, search_term, search_result, setup_teardown_test):
+        product_page = setup_teardown_test
+        product_page.search_product(search_term)
+        actual_search_result = product_page.get_product_names()
+        self.soft_assert.assert_equal(actual_search_result, search_result)
         self.soft_assert.finalize()

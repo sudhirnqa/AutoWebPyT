@@ -112,7 +112,7 @@ class BaseElement(object):
         log = custom_logger()
         text_list = []
         if len(self.elements) > 0:
-            text_list = [element.text for element in self.elements]
+            text_list = [element.text.replace(' ' * 2, ' ') for element in self.elements]
             log.info(f"Text found on elements: '{text_list}' from element: {self.locator}")
         else:
             log.error(f"No elements found: {self.locator}")

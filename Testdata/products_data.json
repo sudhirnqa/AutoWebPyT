@@ -2,7 +2,7 @@
   "all_products": {
     "Blue Top": "Rs. 500",
     "Men Tshirt": "Rs. 400",
-    "Sleeveless  Dress": "Rs. 1000",
+    "Sleeveless Dress": "Rs. 1000",
     "Stylish Dress": "Rs. 1500",
     "Winter Top": "Rs. 600",
     "Summer White Top": "Rs. 400",
@@ -42,5 +42,45 @@
     "Availability": "In Stock",
     "Condition": "New",
     "Brand": "Allen Solly Junior"
-  }
+  },
+  "product_to_search": [
+    {
+      "search_term": "fancy",
+      "search_result": [
+        "Fancy Green Top",
+        "Long Maxi Tulle Fancy Dress Up Outfits -Pink"
+      ]
+    },
+    {
+      "search_term": "top",
+      "search_result": [
+        "Blue Top",
+        "Winter Top",
+        "Summer White Top",
+        "Madame Top For Women",
+        "Fancy Green Top",
+        "Sleeves Printed Top - White",
+        "Half Sleeves Top Schiffli Detailing - Pink",
+        "Frozen Tops For Kids",
+        "Full Sleeves Top Cherry - Pink",
+        "Printed Off Shoulder Top - White",
+        "Sleeves Top and Short - Blue & Pink",
+        "Little Girls Mr. Panda Shirt",
+        "Colour Blocked Shirt – Sky Blue",
+        "Lace Top For Women"
+      ]
+    },
+    {
+      "search_term": "blue",
+      "search_result": [
+        "Blue Top",
+        "Sleeves Top and Short - Blue & Pink",
+        "Blue Cotton Indie Mickey Dress",
+        "Colour Blocked Shirt – Sky Blue",
+        "Grunt Blue Slim Fit Jeans",
+        "Beautiful Peacock Blue Cotton Linen Saree",
+        "GRAPHIC DESIGN MEN T SHIRT - BLUE"
+      ]
+    }
+  ]
 }

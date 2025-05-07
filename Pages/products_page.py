@@ -26,6 +26,24 @@ class ProductsPage(BasePage):
     def view_products(self):
         return BaseElement(self.driver, products_page_locators.view_products)
 
+    @property
+    def search_product_field(self):
+        return BaseElement(self.driver, products_page_locators.search_product_field)
+
+    @property
+    def search_btn(self):
+        return BaseElement(self.driver, products_page_locators.search_btn)
+
+    def enter_search_product_name(self, product_name):
+        self.search_product_field.enter_text(product_name)
+
+    def click_search_btn(self):
+        self.search_btn.click()
+
+    def search_product(self, product_name):
+        self.enter_search_product_name(product_name)
+        self.click_search_btn()
+
     def get_product_names(self):
         return self.product_names.elements_text()
 

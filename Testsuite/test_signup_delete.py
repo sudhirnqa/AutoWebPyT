@@ -7,6 +7,10 @@ from Utilities.common_utils import data_faker
 
 @mark.usefixtures("setup_teardown_class")
 class TestSignup:
+    # Parameterize Testdata
+    # Test data for invalid signup testcases
+    invalid_signup = load_data_from_json(".\\Testdata\\signup_data.json")["invalid_signup"]
+    invalid_signup_test_data = [tuple(data_dict.values()) for data_dict in invalid_signup]
 
     @fixture(autouse=True)
     def setup_teardown_test(self):
@@ -15,10 +19,6 @@ class TestSignup:
         test_data = data_faker()
         yield login_page, test_data
         self.driver.delete_all_cookies()
-
-    # Test data for invalid signup testcases
-    invalid_signup = load_data_from_json(".\\Testdata\\signup_data.json")["invalid_signup"]
-    invalid_signup_test_data = [tuple(data_dict.values()) for data_dict in invalid_signup]
 
     @mark.parametrize("name, email, response", invalid_signup_test_data)
     def test_invalid_user_signup(self, name, email, response, setup_teardown_test):

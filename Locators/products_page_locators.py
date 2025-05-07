@@ -7,3 +7,5 @@ product_prices = (By.XPATH, f"{product_cards[1]}//h2")
 product_add_to_cart_buttons = (By.XPATH, f"{product_cards[1]}//a")
 view_products = (By.XPATH, f"{product_cards[1]}//ancestor::div[@class='single-products']"
                            f"//following-sibling::div[@class='choose']//a")
+search_product_field = (By.ID, "search_product")
+search_btn = (By.ID, "submit_search")
