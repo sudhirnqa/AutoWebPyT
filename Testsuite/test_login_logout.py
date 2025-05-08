@@ -2,6 +2,7 @@ from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
 from Pages.login_page import LoginPage
+from Pages.navbar_footer import NavbarFooter
 
 
 @mark.usefixtures("setup_teardown_class")
@@ -45,8 +46,9 @@ class TestLogin:
     @mark.parametrize("email, password", valid_login_test_data)
     def test_user_logout(self, email, password, setup_teardown_test):
         login_page = setup_teardown_test
-        home_page = login_page.fill_login_form_and_click_login_btn(email, password)
-        home_page.click_sign_out_link()
+        login_page.fill_login_form_and_click_login_btn(email, password)
+        nav_footer = NavbarFooter(self.driver)
+        nav_footer.click_sign_out_link()
         login_page_title = login_page.get_title
         self.soft_assert.assert_equal(login_page_title, "Automation Exercise - Signup / Login",
                                       f"Expected title 'Automation Exercise - Signup / Login', but got '{login_page_title}'")

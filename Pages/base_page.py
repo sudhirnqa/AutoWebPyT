@@ -1,5 +1,5 @@
 from selenium.common import NoAlertPresentException, NoSuchWindowException
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
 from Pages.base_element import BaseElement
@@ -119,7 +119,7 @@ class BasePage(object):
     def get_windows_count(self):
         log = custom_logger()
         try:
-            self.wait.until(EC.new_window_is_opened(self.driver.current_window_handle))
+            self.wait.until(ec.new_window_is_opened(self.driver.current_window_handle))
         except (NoSuchWindowException, Exception) as e:
             log.error(f"No new window opened {e}")
         finally:

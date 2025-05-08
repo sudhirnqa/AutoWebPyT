@@ -1,8 +1,8 @@
-from Locators import signup_page_locators, home_page_locators
+from Locators import signup_page_locators, navbar_footer_locators
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
 from Pages.home_page import HomePage
-from Utilities.common_utils import custom_logger, scroll_down_to_bottom
+from Utilities.common_utils import custom_logger
 
 
 class SignupPage(BasePage):
@@ -161,7 +161,7 @@ class SignupPage(BasePage):
     def click_continue_btn(self):
         self.continue_btn.click()
         home_page = HomePage(self.driver)
-        home_page.wait_for_page_to_load(home_page_locators.account_owner)
+        home_page.wait_for_page_to_load(navbar_footer_locators.account_owner)
         return home_page
 
     @property

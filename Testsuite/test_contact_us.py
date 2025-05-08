@@ -28,10 +28,10 @@ class TestContactUS:
 
         contactus_page.fill_contactus_form_and_click_submit(test_data,
                                                             file_to_upload='.\\Testdata\\dummy_file_to_upload')
-        alert_text = contactus_page.get_alert_text()
+        alert_text = contactus_page.get_contactus_page_alert_text()
         self.soft_assert.assert_equal(alert_text, "Press OK to proceed!",
                                       f"Expected success message is: 'Press OK to proceed!', but got: '{alert_text}'")
-        contactus_page.accept_alert()
+        contactus_page.accept_contactus_page_alert()
         success_msg = contactus_page.get_contactus_success_message_text()
         self.soft_assert.assert_equal(success_msg, "Success! Your details have been submitted successfully.",
                                       f"Expected success message is: 'Success! Your details have been submitted successfully.', but got: '{success_msg}'")

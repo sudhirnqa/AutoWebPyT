@@ -1,3 +1,4 @@
+"""login page locators"""
 from selenium.webdriver.common.by import By
 
 signup_form_header = (By.XPATH, "//div[@class='signup-form']//h2")
@@ -10,6 +11,3 @@ login_form_password = (By.XPATH, "//input[@data-qa='login-password']")
 login_btn = (By.XPATH, "//button[@data-qa='login-button']")
 invalid_login_error = (By.XPATH, "//p[text()='Your email or password is incorrect!']")
 invalid_signup_error = (By.XPATH, "//p[text()='Email Address already exist!']")
-logo_img = (By.XPATH, "//img[contains(@alt,'Website for automation practice')]")
-test_cases_link = (By.XPATH, "//a[contains(text(),'Test Cases')]")
-products_link = (By.XPATH, "//a[contains(text(),'Products')]")

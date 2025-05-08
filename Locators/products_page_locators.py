@@ -1,3 +1,4 @@
+"""product page locators"""
 from selenium.webdriver.common.by import By
 
 products_page_header = (By.XPATH, "//h2[text()='All Products']")

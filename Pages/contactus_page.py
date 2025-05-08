@@ -1,5 +1,3 @@
-from time import sleep
-
 from Helpers.common_file_helpers import get_absolute_file_path
 from Locators import contactus_page_locators
 from Pages.base_element import BaseElement

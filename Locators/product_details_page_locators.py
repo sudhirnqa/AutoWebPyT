@@ -1,3 +1,4 @@
+"""product details page locators"""
 from selenium.webdriver.common.by import By
 
 product_details = (By.XPATH, "//div[@class='product-details']")

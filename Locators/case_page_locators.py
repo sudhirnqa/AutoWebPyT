@@ -1,3 +1,4 @@
+"""test cases page locators"""
 from selenium.webdriver.common.by import By
 
 test_case_header = (By.XPATH, "//h2//b[text()='Test Cases']")

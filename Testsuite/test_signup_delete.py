@@ -2,6 +2,7 @@ from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
 from Pages.login_page import LoginPage
+from Pages.navbar_footer import NavbarFooter
 from Utilities.common_utils import data_faker
 
 
@@ -32,9 +33,9 @@ class TestSignup:
         login_page, test_data = setup_teardown_test
         signup_page = login_page.fill_signup_form_and_click_signup_btn(test_data["name"], test_data["email"])
 
-        home_page_title = signup_page.get_title
-        self.soft_assert.assert_equal(home_page_title, "Automation Exercise - Signup",
-                                      f"Expected title 'Automation Exercise - Signup', but got '{home_page_title}'")
+        sihnup_page_title = signup_page.get_title
+        self.soft_assert.assert_equal(sihnup_page_title, "Automation Exercise - Signup",
+                                      f"Expected title 'Automation Exercise - Signup', but got '{sihnup_page_title}'")
 
         self.soft_assert.assert_equal(signup_page.get_signup_name(), test_data["name"],
                                       f"Expected name '{test_data['name']}', but got '{signup_page.get_signup_name()}'")
@@ -59,7 +60,8 @@ class TestSignup:
         signup_page = login_page.fill_signup_form_and_click_signup_btn(test_data["name"], test_data["email"])
         signup_page.fill_signup_form_and_click_continue_btn(test_data)
         home_page = signup_page.click_continue_btn()
-        home_page.click_delete_account_link()
+        nav_footer = NavbarFooter(self.driver)
+        nav_footer.click_delete_account_link()
         self.soft_assert.assert_equal(home_page.get_account_deleted_header_text(), "ACCOUNT DELETED!",
                                       "Account deleted header mismatch.")
         self.soft_assert.assert_in("permanently deleted!", home_page.get_account_deleted_message_text(),

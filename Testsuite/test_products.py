@@ -1,7 +1,7 @@
 from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
-from Pages.login_page import LoginPage
+from Pages.navbar_footer import NavbarFooter
 
 
 @mark.usefixtures("setup_teardown_class")
@@ -14,8 +14,8 @@ class TestProducts:
 
     @fixture(autouse=True)
     def setup_teardown_test(self):
-        login_page = LoginPage(self.driver)
-        product_page = login_page.click_products_link()
+        nav_footer = NavbarFooter(self.driver)
+        product_page = nav_footer.click_products_link()
         yield product_page
         self.driver.delete_all_cookies()
 
