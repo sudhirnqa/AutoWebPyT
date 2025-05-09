@@ -1,0 +1,44 @@
+[MASTER]
+ignore=venv,build,dist
+jobs=1
+persistent=yes
+load-plugins=pylint.extensions.docparams, pylint.extensions.typing, pylint.extensions.mccabe
+
+[MESSAGES CONTROL]
+disable=
+    C0114,  # Missing module docstring
+    C0115,  # Missing class docstring
+    C0116,  # Missing function or method docstring
+
+[REPORTS]
+output-format=colorized
+reports=no
+score=yes
+
+[FORMAT]
+max-line-length=100
+indent-string='    '
+indent-after-paren=4
+
+[BASIC]
+good-names=i,j,k,ex,Run,_,id
+bad-names=foo,bar,baz,todo
+
+[DESIGN]
+max-args=5
+max-locals=15
+max-returns=6
+max-branches=12
+max-statements=50
+max-parents=7
+max-attributes=10
+
+[TYPECHECK]
+ignore-mixin-members=yes
+
+[LOGGING]
+logging-modules=logging
+
+[IMPORTS]
+known-standard-library=typing,dataclasses
+known-third-party=selenium,pytest,openpyxl,pytest-ordering,pytest-html,pytest-xdist,allure-pytest,Faker

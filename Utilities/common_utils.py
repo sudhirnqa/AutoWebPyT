@@ -29,18 +29,9 @@ def allure_attach_screenshot(driver):
 
 def custom_logger(log_level=logging.DEBUG):
     """Create and configure a custom logger."""
+    """Using log settings from pytest.ini"""
     name = inspect.stack()[1][3]
     logger = logging.getLogger(name)
-
-    if not logger.handlers:
-        logger.setLevel(log_level)
-        file_handler = logging.FileHandler("AutomationRun.log", mode='a')
-        file_format = logging.Formatter(
-            fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            datefmt="%m-%d-%Y %H:%M:%S"
-        )
-        file_handler.setFormatter(file_format)
-        logger.addHandler(file_handler)
 
     return logger
 
