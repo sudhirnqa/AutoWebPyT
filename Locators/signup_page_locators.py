@@ -1,4 +1,5 @@
 """signup page locators"""
+
 from selenium.webdriver.common.by import By
 
 signup_page_header = (By.XPATH, "//form[@action='/signup']//preceding-sibling::h2")

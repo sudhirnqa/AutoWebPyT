@@ -18,7 +18,9 @@ class ProductDetailsPage(BasePage):
 
     @property
     def product_availability(self):
-        return BaseElement(self.driver, product_details_page_locators.product_availability)
+        return BaseElement(
+            self.driver, product_details_page_locators.product_availability
+        )
 
     @property
     def product_condition(self):
@@ -47,10 +49,12 @@ class ProductDetailsPage(BasePage):
         return self.product_brand.text
 
     def get_product_details(self):
-        product_details = {'name': self.get_product_name(),
-                           'price': self.get_product_price(),
-                           'category': self.get_product_category().split('Category: ')[1],
-                           'Availability': self.get_product_availability().split('Availability: ')[1],
-                           'Condition': self.get_product_condition().split('Condition: ')[1],
-                           'Brand': self.get_product_brand().split('Brand: ')[1]}
+        product_details = {
+            "name": self.get_product_name(),
+            "price": self.get_product_price(),
+            "category": self.get_product_category().split("Category: ")[1],
+            "Availability": self.get_product_availability().split("Availability: ")[1],
+            "Condition": self.get_product_condition().split("Condition: ")[1],
+            "Brand": self.get_product_brand().split("Brand: ")[1],
+        }
         return product_details

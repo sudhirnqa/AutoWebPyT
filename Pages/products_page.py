@@ -20,7 +20,9 @@ class ProductsPage(BasePage):
 
     @property
     def product_add_to_cart_buttons(self):
-        return BaseElement(self.driver, products_page_locators.product_add_to_cart_buttons)
+        return BaseElement(
+            self.driver, products_page_locators.product_add_to_cart_buttons
+        )
 
     @property
     def view_products(self):
@@ -58,7 +60,9 @@ class ProductsPage(BasePage):
             self.close_other_tabs_and_switch_to_parent_tab()
             self.view_products.click_element_by_index(product_index)
         product_details_page = ProductDetailsPage(self.driver)
-        product_details_page.wait_for_page_to_load(product_details_page_locators.product_details)
+        product_details_page.wait_for_page_to_load(
+            product_details_page_locators.product_details
+        )
         return product_details_page
 
     def get_product_prices(self):

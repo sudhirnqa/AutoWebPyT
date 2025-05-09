@@ -1,4 +1,5 @@
 """home page locators"""
+
 from selenium.webdriver.common.by import By
 
 account_deleted_header = (By.XPATH, "//h2//b[text()='Account Deleted!']")

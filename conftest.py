@@ -18,17 +18,21 @@ global driver
 
 def pytest_addoption(parser):
     """Add custom command-line options for pytest."""
-    parser.addoption("--browser", action="store", default="chrome", help="chrome or edge or firefox")
-    parser.addoption("--env", action="store", default="qa", help="environment under test")
+    parser.addoption(
+        "--browser", action="store", default="chrome", help="chrome or edge or firefox"
+    )
+    parser.addoption(
+        "--env", action="store", default="qa", help="environment under test"
+    )
 
 
-@fixture(scope='session')
+@fixture(scope="session")
 def browser_and_env(request):
     """Fixture to retrieve browser and environment options."""
     return [request.config.getoption("--browser"), request.config.getoption("--env")]
 
 
-@fixture(scope='session', autouse=True)
+@fixture(scope="session", autouse=True)
 def invoke_browser(browser_and_env):
     """Fixture to initialize and yield the browser driver."""
     global driver
@@ -36,27 +40,35 @@ def invoke_browser(browser_and_env):
     log.info("Setting up test session")
     browser = browser_and_env[0].lower()
     base_url = {
-        'dev': 'https://dev.automationexercise.com/',
-        'qa': 'https://automationexercise.com/',
-        'staging': 'https://stage.automationexercise.com/'
+        "dev": "https://dev.automationexercise.com/",
+        "qa": "https://automationexercise.com/",
+        "staging": "https://stage.automationexercise.com/",
     }[browser_and_env[1].lower()]
 
     log.info(f"Browser: {browser}")
     log.info(f"Base URL: {base_url}")
 
     try:
-        if browser in ['chrome', 'gc']:
+        if browser in ["chrome", "gc"]:
             chrome_options = ChromeOptions()
             chrome_options.add_argument("--incognito")
-            driver = webdriver.Chrome(service=ChromeService(executable_path="./Drivers/chromedriver.exe"),
-                                      options=chrome_options)
-        elif browser in ['firefox', 'ff']:
+            driver = webdriver.Chrome(
+                service=ChromeService(executable_path="./Drivers/chromedriver.exe"),
+                options=chrome_options,
+            )
+        elif browser in ["firefox", "ff"]:
             firefox_options = FirefoxOptions()
-            firefox_options.binary_location = "C:/Program Files/Mozilla Firefox/firefox.exe"
-            driver = webdriver.Firefox(service=FirefoxService(executable_path="./Drivers/geckodriver.exe"),
-                                       options=firefox_options)
+            firefox_options.binary_location = (
+                "C:/Program Files/Mozilla Firefox/firefox.exe"
+            )
+            driver = webdriver.Firefox(
+                service=FirefoxService(executable_path="./Drivers/geckodriver.exe"),
+                options=firefox_options,
+            )
         else:
-            driver = webdriver.Edge(service=EdgeService(executable_path="./Drivers/msedgedriver.exe"))
+            driver = webdriver.Edge(
+                service=EdgeService(executable_path="./Drivers/msedgedriver.exe")
+            )
 
     except WebDriverException as e:
         print(f"WebDriverException: {e}")
@@ -86,20 +98,24 @@ def pytest_runtest_makereport(item, call):
     """Capture screenshots for failed tests."""
     log = custom_logger()
     now = datetime.now()
-    pytest_html = item.config.pluginmanager.getplugin('html')
+    pytest_html = item.config.pluginmanager.getplugin("html")
     outcome = yield
     report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
-    if report.when in ['call', 'setup']:
-        xfail = hasattr(report, 'wasxfail')
+    extra = getattr(report, "extra", [])
+    if report.when in ["call", "setup"]:
+        xfail = hasattr(report, "wasxfail")
         if (report.skipped and xfail) or (report.failed and not xfail):
             log.info(f"Test failed: {report.nodeid}")
             # file_name = report.nodeid.replace("::", "_").replace("[","_").replace("]","_") + ".png"
-            file_name = str(screenshot) + "/screenshot" + now.strftime("%S%H%d%m%Y") + ".png"
+            file_name = (
+                str(screenshot) + "/screenshot" + now.strftime("%S%H%d%m%Y") + ".png"
+            )
             _capture_screenshot(file_name)
             if file_name:
-                html = ('<div><img src="/%s" alt="screenshot" style="width:304px;height:228px;" '
-                        'onclick="window.open(this.src)" align="right"/></div>') % file_name
+                html = (
+                    '<div><img src="/%s" alt="screenshot" style="width:304px;height:228px;" '
+                    'onclick="window.open(this.src)" align="right"/></div>'
+                ) % file_name
                 extra.append(pytest_html.extras.html(html))
         report.extras = extra
 
@@ -108,15 +124,15 @@ def pytest_runtest_makereport(item, call):
 def pytest_configure(config):
     """Configure pytest to generate reports and screenshots."""
     log = custom_logger()
-    log.info(''.center(100, "-"))
+    log.info("".center(100, "-"))
     log.info("Initializing Test".center(100, "-"))
-    log.info(''.center(100, "-"))
+    log.info("".center(100, "-"))
     log.info(f"Configuring pytest: {config}")
     global screenshot
     now = datetime.now()
-    report_dir = Path('Reports', now.strftime("%S%H%d%m%Y"))
+    report_dir = Path("Reports", now.strftime("%S%H%d%m%Y"))
     report_dir.mkdir(parents=True, exist_ok=True)
-    screenshot = Path('Screenshots', now.strftime("%S%H%d%m%Y"))
+    screenshot = Path("Screenshots", now.strftime("%S%H%d%m%Y"))
     screenshot.mkdir(parents=True, exist_ok=True)
     pytest_html = report_dir / f"report_{now.strftime('%H%M%S')}.html"
     config.option.htmlpath = pytest_html
@@ -142,7 +158,7 @@ def pytest_html_report_title(report):
     log.info(f"Report title set: {report.title}")
 
 
-@fixture(scope='class', autouse=True)
+@fixture(scope="class", autouse=True)
 def setup_teardown_class(request, invoke_browser):
     """Fixture to set up and tear down test class."""
     log = custom_logger()

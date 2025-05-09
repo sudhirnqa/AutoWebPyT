@@ -1,5 +1,10 @@
-from Locators import navbar_footer_locators, case_page_locators, products_page_locators, home_page_locators, \
-    login_page_locators
+from Locators import (
+    navbar_footer_locators,
+    case_page_locators,
+    products_page_locators,
+    home_page_locators,
+    login_page_locators,
+)
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
 from Pages.cases_page import TestCasesPage

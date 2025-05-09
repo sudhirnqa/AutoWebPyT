@@ -1,4 +1,5 @@
 """login page locators"""
+
 from selenium.webdriver.common.by import By
 
 signup_form_header = (By.XPATH, "//div[@class='signup-form']//h2")

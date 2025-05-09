@@ -1,4 +1,5 @@
 """navbar and footer locators"""
+
 from selenium.webdriver.common.by import By
 
 account_owner = (By.XPATH, "//a[contains(text(),'Logged in as')]//b")

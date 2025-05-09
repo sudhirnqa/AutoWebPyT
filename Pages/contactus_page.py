@@ -76,10 +76,10 @@ class ContactusPage(BasePage):
 
     def fill_contactus_form_and_click_submit(self, test_data, file_to_upload=None):
         if isinstance(test_data, dict):
-            self.enter_contactus_name_field(test_data['name'])
-            self.enter_contactus_email_field(test_data['email'])
-            self.enter_contactus_subject_field(test_data['text'])
-            self.enter_contactus_message_field('\n'.join(test_data['texts']))
+            self.enter_contactus_name_field(test_data["name"])
+            self.enter_contactus_email_field(test_data["email"])
+            self.enter_contactus_subject_field(test_data["text"])
+            self.enter_contactus_message_field("\n".join(test_data["texts"]))
             if file_to_upload:
                 self.enter_contactus_file_path_to_upload(file_to_upload)
             self.click_contactus_submit_btn()
@@ -90,7 +90,9 @@ class ContactusPage(BasePage):
 
     @property
     def contactus_success_message(self):
-        return BaseElement(self.driver, contactus_page_locators.contactus_success_message)
+        return BaseElement(
+            self.driver, contactus_page_locators.contactus_success_message
+        )
 
     def get_contactus_success_message_text(self):
         return self.contactus_success_message.text

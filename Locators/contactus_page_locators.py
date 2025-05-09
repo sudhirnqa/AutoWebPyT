@@ -1,4 +1,5 @@
 """contact us page locators"""
+
 from selenium.webdriver.common.by import By
 
 contactus_page_header = (By.XPATH, "//div[@class='bg']//h2")

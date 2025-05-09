@@ -17,13 +17,14 @@ def allure_attach_screenshot(driver):
     test_name = inspect.stack()[1][3]
     # Attach the screenshot to the Allure report
     now = datetime.datetime.now()
-    formated_now = (now.strftime('%Y-%m-%d-%H-%M-%S-%f') +
-                    str(int(now.strftime('%f')) * random.randrange(1, 100)))
+    formated_now = now.strftime("%Y-%m-%d-%H-%M-%S-%f") + str(
+        int(now.strftime("%f")) * random.randrange(1, 100)
+    )
     test_name = f"{test_name}_{formated_now}"
     allure.attach(
         driver.get_screenshot_as_png(),
         name=test_name,
-        attachment_type=allure.attachment_type.PNG
+        attachment_type=allure.attachment_type.PNG,
     )
 
 
@@ -43,19 +44,39 @@ def data_faker():
         fake = Faker()
 
         # Create an empty dictionary to store the fake data
-        fake_data = {'name': fake.name(), 'first_name': fake.first_name(), 'last_name': fake.last_name(),
-                     'address': fake.address(), 'address_1': fake.address(), 'address_2': fake.address(),
-                     'street_address': fake.street_address(), 'city': fake.city(),
-                     'state': fake.state(), 'zipcode': fake.zipcode(), 'country': fake.country(), 'email': fake.email(),
-                     'safe_email': fake.safe_email(), 'password': fake.password(), 'phone_number': fake.phone_number(),
-                     'company': fake.company(),
-                     'job': fake.job(), 'text': fake.text(max_nb_chars=100),
-                     'texts': fake.texts(nb_texts=3, max_nb_chars=100), 'sentence': fake.sentence(),
-                     'paragraph': fake.paragraph(), 'date_of_birth': fake.date_of_birth(minimum_age=18, maximum_age=90),
-                     'date_this_decade': fake.date_this_decade(), 'url': fake.url(), 'ipv4': fake.ipv4(),
-                     'user_agent': fake.user_agent(), 'uuid4': fake.uuid4(),
-                     'credit_card_number': fake.credit_card_number(), 'currency_code': fake.currency_code(),
-                     'color_name': fake.color_name(), 'boolean': fake.boolean()}
+        fake_data = {
+            "name": fake.name(),
+            "first_name": fake.first_name(),
+            "last_name": fake.last_name(),
+            "address": fake.address(),
+            "address_1": fake.address(),
+            "address_2": fake.address(),
+            "street_address": fake.street_address(),
+            "city": fake.city(),
+            "state": fake.state(),
+            "zipcode": fake.zipcode(),
+            "country": fake.country(),
+            "email": fake.email(),
+            "safe_email": fake.safe_email(),
+            "password": fake.password(),
+            "phone_number": fake.phone_number(),
+            "company": fake.company(),
+            "job": fake.job(),
+            "text": fake.text(max_nb_chars=100),
+            "texts": fake.texts(nb_texts=3, max_nb_chars=100),
+            "sentence": fake.sentence(),
+            "paragraph": fake.paragraph(),
+            "date_of_birth": fake.date_of_birth(minimum_age=18, maximum_age=90),
+            "date_this_decade": fake.date_this_decade(),
+            "url": fake.url(),
+            "ipv4": fake.ipv4(),
+            "user_agent": fake.user_agent(),
+            "uuid4": fake.uuid4(),
+            "credit_card_number": fake.credit_card_number(),
+            "currency_code": fake.currency_code(),
+            "color_name": fake.color_name(),
+            "boolean": fake.boolean(),
+        }
 
         # Log the generated demographics
         log.info(f"Generated demographics: {fake_data}")

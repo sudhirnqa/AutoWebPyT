@@ -1,5 +1,12 @@
-from selenium.common import NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException, \
-    ElementNotVisibleException, InvalidSelectorException, StaleElementReferenceException, NoSuchAttributeException
+from selenium.common import (
+    NoSuchElementException,
+    ElementClickInterceptedException,
+    ElementNotInteractableException,
+    ElementNotVisibleException,
+    InvalidSelectorException,
+    StaleElementReferenceException,
+    NoSuchAttributeException,
+)
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
@@ -25,8 +32,13 @@ class BaseElement(object):
         try:
             self.element = self.wait.until(ec.presence_of_element_located(self.locator))
             log.info(f"Element found: {self.locator}")
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error finding element: {self.locator} - {e}")
             log.error(f"Error finding element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -38,7 +50,9 @@ class BaseElement(object):
     def find_elements(self):
         log = custom_logger()
         try:
-            self.elements = self.wait.until(ec.presence_of_all_elements_located(self.locator))
+            self.elements = self.wait.until(
+                ec.presence_of_all_elements_located(self.locator)
+            )
             log.info(f"Elements found: {self.locator}")
         except StaleElementReferenceException as e:
             print(f"Error finding element: {self.locator} - {e}")
@@ -55,8 +69,13 @@ class BaseElement(object):
             self.scroll_to_element()
             self.wait.until(ec.element_to_be_clickable(self.locator)).click()
             log.info(f"Element clicked: {self.locator}")
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error clicking element: {self.locator} - {e}")
             log.error(f"Error clicking element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -71,30 +90,47 @@ class BaseElement(object):
             self.scroll_to_element()
             self.element.send_keys(text)
             log.info(f"Text entered: '{text}' in {self.locator}")
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error entering text in element: {self.locator} - {e}")
             log.error(f"Error entering text in element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
         except Exception as e:
             print(f"Unexpected error entering text in element: {self.locator} - {e}")
-            log.error(f"Unexpected error entering text in element: {self.locator} - {e}")
+            log.error(
+                f"Unexpected error entering text in element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
 
     def attribute(self, attribute_name):
         log = custom_logger()
         try:
             attribute_value = self.element.get_attribute(attribute_name)
-            log.info(f"Attribute '{attribute_name}' value: {attribute_value} from element: {self.locator}")
+            log.info(
+                f"Attribute '{attribute_name}' value: {attribute_value} from element: {self.locator}"
+            )
             return attribute_value
         except NoSuchAttributeException as e:
-            print(f"Error getting attribute '{attribute_name}' from element: {self.locator} - {e}")
-            log.error(f"Error getting attribute '{attribute_name}' from element: {self.locator} - {e}")
+            print(
+                f"Error getting attribute '{attribute_name}' from element: {self.locator} - {e}"
+            )
+            log.error(
+                f"Error getting attribute '{attribute_name}' from element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
             return None
         except Exception as e:
-            print(f"Unexpected error getting attribute '{attribute_name}' from element: {self.locator} - {e}")
-            log.error(f"Unexpected error getting attribute '{attribute_name}' from element: {self.locator} - {e}")
+            print(
+                f"Unexpected error getting attribute '{attribute_name}' from element: {self.locator} - {e}"
+            )
+            log.error(
+                f"Unexpected error getting attribute '{attribute_name}' from element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
             return None
 
@@ -112,8 +148,12 @@ class BaseElement(object):
         log = custom_logger()
         text_list = []
         if len(self.elements) > 0:
-            text_list = [element.text.replace(' ' * 2, ' ') for element in self.elements]
-            log.info(f"Text found on elements: '{text_list}' from element: {self.locator}")
+            text_list = [
+                element.text.replace(" " * 2, " ") for element in self.elements
+            ]
+            log.info(
+                f"Text found on elements: '{text_list}' from element: {self.locator}"
+            )
         else:
             log.error(f"No elements found: {self.locator}")
         return text_list
@@ -125,7 +165,8 @@ class BaseElement(object):
                 if element.text == target_text:
                     self.action.move_to_element(element).click().perform()
                     log.info(
-                        f"Text on element found and clicking on it: '{element.text}' from elements: {self.locator}")
+                        f"Text on element found and clicking on it: '{element.text}' from elements: {self.locator}"
+                    )
                     break
         else:
             log.error(f"No elements found: {self.locator}")
@@ -136,7 +177,8 @@ class BaseElement(object):
             for i, element in enumerate(self.elements):
                 if element.text == target_text:
                     log.info(
-                        f"Text on element found {element.text} and returning the index: '{i}' from elements: {self.locator}")
+                        f"Text on element found {element.text} and returning the index: '{i}' from elements: {self.locator}"
+                    )
                     return i
         else:
             log.error(f"No elements found: {self.locator}")
@@ -148,7 +190,8 @@ class BaseElement(object):
             for i, element in enumerate(self.elements):
                 if i == index:
                     log.info(
-                        f"Returning text on index {i} is {element.text} from elements: {self.locator}")
+                        f"Returning text on index {i} is {element.text} from elements: {self.locator}"
+                    )
                     return element.text
         else:
             log.error(f"No elements found: {self.locator}")
@@ -160,8 +203,7 @@ class BaseElement(object):
             for i, element in enumerate(self.elements):
                 if i == index:
                     self.action.move_to_element(element).click().perform()
-                    log.info(
-                        f"Clicking the index {i} on elements: {self.locator}")
+                    log.info(f"Clicking the index {i} on elements: {self.locator}")
                     break
         else:
             log.error(f"No elements found: {self.locator}")
@@ -177,8 +219,12 @@ class BaseElement(object):
             allure_attach_screenshot(self.driver)
             return False
         except Exception as e:
-            print(f"Unexpected error checking if element is displayed: {self.locator} - {e}")
-            log.error(f"Unexpected error checking if element is displayed: {self.locator} - {e}")
+            print(
+                f"Unexpected error checking if element is displayed: {self.locator} - {e}"
+            )
+            log.error(
+                f"Unexpected error checking if element is displayed: {self.locator} - {e}"
+            )
             return False
 
         return is_displayed
@@ -197,8 +243,13 @@ class BaseElement(object):
             elif select_by_type == "text":
                 select.select_by_visible_text(value)
             log.info(f"Dropdown Selected by {select_by_type} on : {value}")
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error selecting dropdown: {self.locator} - {e}")
             log.error(f"Error selecting dropdown: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -214,15 +265,22 @@ class BaseElement(object):
             options = [option.text for option in select.options]
             log.info(f"Dropdown options: {options} from element: {self.locator}")
             return options
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error getting dropdown options: {self.locator} - {e}")
             log.error(f"Error getting dropdown options: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
             return None
         except Exception as e:
             print(f"Unexpected error getting dropdown options: {self.locator} - {e}")
-            log.error(f"Unexpected error getting dropdown options: {self.locator} - {e}")
+            log.error(
+                f"Unexpected error getting dropdown options: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
             return None
 
@@ -237,8 +295,12 @@ class BaseElement(object):
             allure_attach_screenshot(self.driver)
             return False
         except Exception as e:
-            print(f"Unexpected error checking if element is selected: {self.locator} - {e}")
-            log.error(f"Unexpected error checking if element is selected: {self.locator} - {e}")
+            print(
+                f"Unexpected error checking if element is selected: {self.locator} - {e}"
+            )
+            log.error(
+                f"Unexpected error checking if element is selected: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
             return False
         return is_selected
@@ -254,8 +316,12 @@ class BaseElement(object):
             allure_attach_screenshot(self.driver)
             return False
         except Exception as e:
-            print(f"Unexpected error checking if element is enabled: {self.locator} - {e}")
-            log.error(f"Unexpected error checking if element is enabled: {self.locator} - {e}")
+            print(
+                f"Unexpected error checking if element is enabled: {self.locator} - {e}"
+            )
+            log.error(
+                f"Unexpected error checking if element is enabled: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
             return False
         return is_enabled
@@ -265,7 +331,11 @@ class BaseElement(object):
         try:
             self.action.move_to_element(self.element).perform()
             log.info(f"Mouse hovered on element: {self.locator}")
-        except (ElementNotInteractableException, ElementNotVisibleException, StaleElementReferenceException,) as e:
+        except (
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error hovering on element: {self.locator} - {e}")
             log.error(f"Error hovering on element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -279,14 +349,20 @@ class BaseElement(object):
         try:
             self.action.double_click(self.element).perform()
             log.info(f"Double clicked on element: {self.locator}")
-        except (ElementNotInteractableException, ElementNotVisibleException,
-                StaleElementReferenceException, ElementClickInterceptedException) as e:
+        except (
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            StaleElementReferenceException,
+            ElementClickInterceptedException,
+        ) as e:
             print(f"Error double clicking on element: {self.locator} - {e}")
             log.error(f"Error double clicking on element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
         except Exception as e:
             print(f"Unexpected error double clicking on element: {self.locator} - {e}")
-            log.error(f"Unexpected error double clicking on element: {self.locator} - {e}")
+            log.error(
+                f"Unexpected error double clicking on element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
 
     def right_click_on_element(self):
@@ -294,29 +370,45 @@ class BaseElement(object):
         try:
             self.action.context_click(self.element).perform()
             log.info(f"Right clicked on element: {self.locator}")
-        except (ElementNotInteractableException, ElementNotVisibleException,
-                ElementClickInterceptedException, StaleElementReferenceException) as e:
+        except (
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            ElementClickInterceptedException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error right clicking on element: {self.locator} - {e}")
             log.error(f"Error right clicking on element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
         except Exception as e:
             print(f"Unexpected error right clicking on element: {self.locator} - {e}")
-            log.error(f"Unexpected error right clicking on element: {self.locator} - {e}")
+            log.error(
+                f"Unexpected error right clicking on element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
 
     def drag_an_element_and_drop_on_another_element(self, target_element):
         log = custom_logger()
         try:
             self.action.drag_and_drop(self.element, target_element).perform()
-            log.info(f"Dragged element: {self.locator} and dropped on element: {target_element}")
-        except (ElementNotInteractableException, ElementNotVisibleException,
-                ElementClickInterceptedException, StaleElementReferenceException) as e:
+            log.info(
+                f"Dragged element: {self.locator} and dropped on element: {target_element}"
+            )
+        except (
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            ElementClickInterceptedException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error dragging and dropping element: {self.locator} - {e}")
             log.error(f"Error dragging and dropping element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
         except Exception as e:
-            print(f"Unexpected error dragging and dropping element: {self.locator} - {e}")
-            log.error(f"Unexpected error dragging and dropping element: {self.locator} - {e}")
+            print(
+                f"Unexpected error dragging and dropping element: {self.locator} - {e}"
+            )
+            log.error(
+                f"Unexpected error dragging and dropping element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)
 
     def scroll_to_element(self):
@@ -324,8 +416,11 @@ class BaseElement(object):
         try:
             self.driver.execute_script("arguments[0].scrollIntoView();", self.element)
             log.info(f"Scrolled to element: {self.locator}")
-        except (ElementNotInteractableException, ElementNotVisibleException,
-                StaleElementReferenceException) as e:
+        except (
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error scrolling to element: {self.locator} - {e}")
             log.error(f"Error scrolling to element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
@@ -339,12 +434,19 @@ class BaseElement(object):
         try:
             self.element.clear()
             log.info(f"Cleared text in element: {self.locator}")
-        except (ElementClickInterceptedException, ElementNotInteractableException, ElementNotVisibleException,
-                InvalidSelectorException, StaleElementReferenceException,) as e:
+        except (
+            ElementClickInterceptedException,
+            ElementNotInteractableException,
+            ElementNotVisibleException,
+            InvalidSelectorException,
+            StaleElementReferenceException,
+        ) as e:
             print(f"Error clearing text in element: {self.locator} - {e}")
             log.error(f"Error clearing text in element: {self.locator} - {e}")
             allure_attach_screenshot(self.driver)
         except Exception as e:
             print(f"Unexpected error clearing text in element: {self.locator} - {e}")
-            log.error(f"Unexpected error clearing text in element: {self.locator} - {e}")
+            log.error(
+                f"Unexpected error clearing text in element: {self.locator} - {e}"
+            )
             allure_attach_screenshot(self.driver)

@@ -91,7 +91,9 @@ class CustomAssert:
         """
         log = custom_logger()
         if not condition:
-            error_msg = f"Assertion Failed: Expected condition to be True, but it was False."
+            error_msg = (
+                f"Assertion Failed: Expected condition to be True, but it was False."
+            )
             if message:
                 error_msg += f" [{message}]"
             log.error(error_msg)
@@ -109,7 +111,9 @@ class CustomAssert:
         """
         log = custom_logger()
         if condition:
-            error_msg = f"Assertion Failed: Expected condition to be False, but it was True."
+            error_msg = (
+                f"Assertion Failed: Expected condition to be False, but it was True."
+            )
             if message:
                 error_msg += f" [{message}]"
             log.error(error_msg)
@@ -127,7 +131,9 @@ class CustomAssert:
         """
         log = custom_logger()
         if obj is not None:
-            error_msg = f"Assertion Failed: Expected object to be None, but it was '{obj}'."
+            error_msg = (
+                f"Assertion Failed: Expected object to be None, but it was '{obj}'."
+            )
             if message:
                 error_msg += f" [{message}]"
             log.error(error_msg)
@@ -238,7 +244,9 @@ class CustomAssert:
             # Combine all failure messages
             combined_message = "\n\n".join(self.failures)
             # Add a header indicating the number of failures
-            failure_summary = f"{len(self.failures)} assertion(s) failed:\n\n{combined_message}"
+            failure_summary = (
+                f"{len(self.failures)} assertion(s) failed:\n\n{combined_message}"
+            )
             # Clear the failure list in case the instance is reused (though not recommended per test)
             self.failures = []
             # Raise the combined error

@@ -10,12 +10,16 @@ def create_excel(file_path):
     workbook.save(file_path)
 
 
-def read_excel(file_path, sheet_name=''):
+def read_excel(file_path, sheet_name=""):
     """Read data from an Excel file and return it as a list of dictionaries."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
         data = []
         headers = [cell.value for cell in sheet[1]]
 
@@ -36,13 +40,17 @@ def read_excel(file_path, sheet_name=''):
         return None
 
 
-def write_excel(file_path, data, sheet_name=''):
+def write_excel(file_path, data, sheet_name=""):
     """Write data to an Excel file."""
     log = common_utils.custom_logger()
     try:
         if isinstance(data, list) and all(isinstance(item, dict) for item in data):
             workbook = openpyxl.Workbook()
-            sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+            sheet = (
+                workbook[sheet_name]
+                if sheet_name in workbook.sheetnames
+                else workbook.active
+            )
 
             # Write headers
             headers = data[0].keys()
@@ -67,14 +75,18 @@ def write_excel(file_path, data, sheet_name=''):
         log.error(f"Error writing to Excel file: {e}")
 
 
-def append_excel(file_path, data, sheet_name=''):
+def append_excel(file_path, data, sheet_name=""):
     """Write data to an Excel file."""
     log = common_utils.custom_logger()
     try:
         if isinstance(data, list) and all(isinstance(item, dict) for item in data):
             """Append data to an existing Excel file."""
             workbook = openpyxl.load_workbook(file_path)
-            sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+            sheet = (
+                workbook[sheet_name]
+                if sheet_name in workbook.sheetnames
+                else workbook.active
+            )
             # Write data
             for row in data:
                 sheet.append(row.values())
@@ -92,12 +104,16 @@ def append_excel(file_path, data, sheet_name=''):
         log.error(f"Error appending to Excel file: {e}")
 
 
-def read_excel_column(file_path, column_name, sheet_name=''):
+def read_excel_column(file_path, column_name, sheet_name=""):
     """Read a specific column from an Excel file and return it as a list."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
         column_data = []
 
         # Get the index of the specified column
@@ -118,12 +134,16 @@ def read_excel_column(file_path, column_name, sheet_name=''):
         return None
 
 
-def write_excel_column(file_path, column_name, data, sheet_name=''):
+def write_excel_column(file_path, column_name, data, sheet_name=""):
     """Write data to a specific column in an Excel file."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
 
         # Get the index of the specified column
         headers = [cell.value for cell in sheet[1]]
@@ -147,12 +167,16 @@ def write_excel_column(file_path, column_name, data, sheet_name=''):
         log.error(f"Error writing an Excel file: {e}")
 
 
-def append_excel_column(file_path, column_name, data, sheet_name=''):
+def append_excel_column(file_path, column_name, data, sheet_name=""):
     """Append data to a specific column in an Excel file."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
 
         # Get the index of the specified column
         headers = [cell.value for cell in sheet[1]]
@@ -176,12 +200,16 @@ def append_excel_column(file_path, column_name, data, sheet_name=''):
         log.error(f"Error appending to Excel file: {e}")
 
 
-def delete_excel_column(file_path, column_name, sheet_name=''):
+def delete_excel_column(file_path, column_name, sheet_name=""):
     """Delete a specific column from an Excel file."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
 
         # Get the index of the specified column
         headers = [cell.value for cell in sheet[1]]
@@ -199,12 +227,16 @@ def delete_excel_column(file_path, column_name, sheet_name=''):
         log.error(f"Error in deleting a column in Excel file: {e}")
 
 
-def delete_excel_row(file_path, row_number, sheet_name=''):
+def delete_excel_row(file_path, row_number, sheet_name=""):
     """Delete a specific row from an Excel file."""
     log = common_utils.custom_logger()
     try:
         workbook = openpyxl.load_workbook(file_path)
-        sheet = workbook[sheet_name] if sheet_name in workbook.sheetnames else workbook.active
+        sheet = (
+            workbook[sheet_name]
+            if sheet_name in workbook.sheetnames
+            else workbook.active
+        )
 
         # Delete the specified row
         sheet.delete_rows(row_number)
