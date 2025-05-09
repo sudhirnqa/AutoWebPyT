@@ -140,6 +140,10 @@ def pytest_configure(config):
     log.info(f"Report directory created: {report_dir}")
     log.info(f"Screenshot directory created: {screenshot}")
     log.info(f"Report path: {pytest_html}")
+    # build.properties - inject variable to publish html in Jenkins
+    build_html = f"html_directory={report_dir}\\"
+    with open("build.properties", "w") as f:
+        f.write(str(build_html))
 
 
 def _capture_screenshot(name):
