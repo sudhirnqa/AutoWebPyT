@@ -26,10 +26,10 @@ class TestProducts:
     def test_product_listing(self, setup_teardown_test):
         product_page = setup_teardown_test
         actual_products = product_page.get_products_as_dict()
-        expected_products = load_data_from_json("./Testdata/products_data.json")[
+        expected_products = load_data_from_json(".//Testdata//products_data.json")[
             "all_products"
         ]
-        self.soft_assert.assert_equal(actual_products, expected_products)
+        self.soft_assert.assert_dict_equals(actual_products, expected_products)
         self.soft_assert.finalize()
 
     def test_the_desired_values_displayed_on_products_details_page(
@@ -39,7 +39,7 @@ class TestProducts:
         product_page = setup_teardown_test
         product_details_page = product_page.click_view_product(product["name"])
         product_detail = product_details_page.get_product_details()
-        self.soft_assert.assert_equal(product_detail, product)
+        self.soft_assert.assert_dict_equals(product_detail, product)
         self.soft_assert.finalize()
 
     @mark.parametrize("search_term, search_result", product_to_search)
@@ -49,5 +49,5 @@ class TestProducts:
         product_page = setup_teardown_test
         product_page.search_product(search_term)
         actual_search_result = product_page.get_product_names()
-        self.soft_assert.assert_equal(actual_search_result, search_result)
+        self.soft_assert.assert_dict_equals(actual_search_result, search_result)
         self.soft_assert.finalize()

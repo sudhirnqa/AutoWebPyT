@@ -33,7 +33,7 @@ class TestLogin:
         login_page = setup_teardown_test
         login_page.fill_login_form_and_click_login_btn(email, password)
         error_msg = login_page.get_invalid_login_error_text()
-        self.soft_assert.assert_equal(
+        self.soft_assert.assert_string_equals(
             error_msg, response, "Invalid login error message mismatch."
         )
         self.soft_assert.finalize()
@@ -43,7 +43,7 @@ class TestLogin:
         login_page = setup_teardown_test
         home_page = login_page.fill_login_form_and_click_login_btn(email, password)
         home_page_title = home_page.get_title
-        self.soft_assert.assert_equal(
+        self.soft_assert.assert_string_equals(
             home_page_title,
             "Automation Exercise",
             f"Expected title 'Automation Exercise', but got '{home_page_title}'",
@@ -57,15 +57,15 @@ class TestLogin:
         nav_footer = NavbarFooter(self.driver)
         nav_footer.click_sign_out_link()
         login_page_title = login_page.get_title
-        self.soft_assert.assert_equal(
+        self.soft_assert.assert_string_equals(
             login_page_title,
             "Automation Exercise - Signup / Login",
             f"Expected title 'Automation Exercise - Signup / Login', but got '{login_page_title}'",
         )
         current_url = login_page.get_current_url()
-        self.soft_assert.assert_in(
-            "login",
+        self.soft_assert.assert_string_contains(
             current_url,
+            "login",
             f"Expected URL contains 'login', but got '{current_url}'",
         )
         self.soft_assert.finalize()
