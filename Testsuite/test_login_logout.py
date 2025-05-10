@@ -7,7 +7,7 @@ from Pages.navbar_footer import NavbarFooter
 
 @mark.usefixtures("setup_teardown_class")
 class TestLogin:
-    """Test class for login functionality."""
+    """Test class for login and logout functionality."""
 
     # Parameterize Testdata
     # Test data for invalid login testcases

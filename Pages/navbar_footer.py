@@ -1,3 +1,5 @@
+import time
+
 from Locators import (
     navbar_footer_locators,
     case_page_locators,
@@ -58,3 +60,57 @@ class NavbarFooter(BasePage):
 
     def is_log_out_displayed(self):
         return self.sign_out_link.is_element_displayed()
+
+    @property
+    def subscribe_email_field(self):
+        return BaseElement(self.driver, navbar_footer_locators.subscribe_email_field)
+
+    @property
+    def subscribe_btn(self):
+        return BaseElement(self.driver, navbar_footer_locators.subscribe_btn)
+
+    @property
+    def subscribe_success_message(self):
+        return BaseElement(
+            self.driver, navbar_footer_locators.subscribe_success_message
+        )
+
+    def enter_subscribe_email_field(self, email):
+        self.subscribe_email_field.enter_text(email)
+
+    def click_subscribe_btn(self):
+        self.subscribe_btn.click()
+
+    def get_subscribe_success_message(self):
+        return self.subscribe_success_message.text
+
+    def is_subscribe_success_message_displayed(self):
+        return self.subscribe_success_message.is_element_displayed()
+
+    def is_subscribe_success_message_disappeared(self):
+        time.sleep(2)  # toast message should be disappeared exactly after 2 seconds
+        return not self.subscribe_success_message.is_element_displayed()
+
+    @property
+    def home_link(self):
+        return BaseElement(self.driver, navbar_footer_locators.home_link)
+
+    def click_home_page_link(self):
+        self.home_link.click()
+        self.wait_for_page_to_load(navbar_footer_locators.logo_img)
+
+    @property
+    def cart_link(self):
+        return BaseElement(self.driver, navbar_footer_locators.cart_link)
+
+    def click_cart_link(self):
+        self.cart_link.click()
+
+    def fill_subscription_email_and_click_subscription_btn(self, email):
+        self.enter_subscribe_email_field(email)
+        self.click_subscribe_btn()
+        if self.is_subscribe_success_message_displayed():
+            return self.get_subscribe_success_message()
+        else:
+            # invalid subscription email
+            return None

@@ -6,7 +6,7 @@ from Pages.navbar_footer import NavbarFooter
 
 @mark.usefixtures("setup_teardown_class")
 class TestProducts:
-    """Test class for login functionality."""
+    """Test class for products."""
 
     # Parameterize testdata
     product_to_search_list = load_data_from_json("./Testdata/products_data.json")[

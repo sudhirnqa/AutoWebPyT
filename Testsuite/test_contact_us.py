@@ -6,7 +6,7 @@ from Utilities.common_utils import data_faker
 
 @mark.usefixtures("setup_teardown_class")
 class TestContactUS:
-    """Test class for login functionality."""
+    """Test class for contact us functionality."""
 
     @fixture(autouse=True)
     def setup_teardown_test(self):

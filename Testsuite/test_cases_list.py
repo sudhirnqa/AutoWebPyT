@@ -5,7 +5,6 @@ from Pages.navbar_footer import NavbarFooter
 
 @mark.usefixtures("setup_teardown_class")
 class TestListOfCases:
-    """Test class for login functionality."""
 
     @fixture(autouse=True)
     def setup_teardown_test(self):

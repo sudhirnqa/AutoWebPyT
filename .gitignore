@@ -31,3 +31,4 @@ Reports/
 Screenshots/
 Allure-results/
 build.properties
+junitreport.xml
