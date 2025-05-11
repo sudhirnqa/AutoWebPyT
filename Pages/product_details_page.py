@@ -1,6 +1,7 @@
-from Locators import product_details_page_locators
+from Locators import product_details_page_locators, cart_page_locators
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
+from Pages.cart_page import CartPage
 
 
 class ProductDetailsPage(BasePage):
@@ -58,3 +59,37 @@ class ProductDetailsPage(BasePage):
             "Brand": self.get_product_brand().split("Brand: ")[1],
         }
         return product_details
+
+    @property
+    def quantity_field(self):
+        return BaseElement(self.driver, product_details_page_locators.quantity_field)
+
+    def clear_quantity_field(self):
+        self.quantity_field.clear_element_text()
+
+    def enter_quantity_field(self, quantity):
+        self.quantity_field.enter_text(quantity)
+
+    @property
+    def add_to_cart_btn(self):
+        return BaseElement(self.driver, product_details_page_locators.add_to_cart_btn)
+
+    def click_add_to_cart_btn(self):
+        self.add_to_cart_btn.click()
+
+    @property
+    def view_cart_link(self):
+        return BaseElement(self.driver, product_details_page_locators.view_cart_link)
+
+    def click_view_cart_link(self):
+        self.view_cart_link.click()
+        cart_page = CartPage(self.driver)
+        cart_page.wait_for_page_to_load(cart_page_locators.cart_page_header)
+        return cart_page
+
+    def enter_quantity_and_click_add_to_cart(self, quantity):
+        self.clear_quantity_field()
+        self.enter_quantity_field(quantity)
+        self.click_add_to_cart_btn()
+        cart_page = self.click_view_cart_link()
+        return cart_page

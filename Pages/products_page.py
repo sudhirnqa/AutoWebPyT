@@ -77,10 +77,6 @@ class ProductsPage(BasePage):
     def click_view_product(self, product_name):
         product_index = self.get_index_of_product(product_name)
         self.view_products.click_element_by_index(product_index)
-        windows_count = self.get_windows_count()
-        if windows_count > 1:
-            self.close_other_tabs_and_switch_to_parent_tab()
-            self.view_products.click_element_by_index(product_index)
         product_details_page = ProductDetailsPage(self.driver)
         product_details_page.wait_for_page_to_load(
             product_details_page_locators.product_details

@@ -18,3 +18,6 @@ product_brand = (
     By.XPATH,
     f"{product_details[1]}//b[contains(text(),'Brand')]//parent::p",
 )
+quantity_field = (By.ID, "quantity")
+add_to_cart_btn = (By.XPATH, "//button[@type='button']")
+view_cart_link = (By.XPATH, "//a//u[text()='View Cart']")

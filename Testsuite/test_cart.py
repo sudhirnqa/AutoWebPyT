@@ -6,19 +6,18 @@ from Pages.navbar_footer import NavbarFooter
 
 
 @mark.usefixtures("setup_teardown_class")
-class TestProducts:
-    """Test class for subscription functionality."""
+class TestCart:
+    """Test class for cart functionality."""
 
     @fixture(autouse=True)
     def setup_teardown_test(self):
         nav_footer = NavbarFooter(self.driver)
         nav_footer.wait_for_page_to_load(navbar_footer_locators.subscribe_email_field)
         products_page = nav_footer.click_products_link()
-        # test_data = data_faker()
         yield products_page
         self.driver.delete_all_cookies()
 
-    def test_subscription_on_home_page(self, setup_teardown_test):
+    def test_add_product_in_cart(self, setup_teardown_test):
         products_page = setup_teardown_test
         products_page.click_add_to_cart_and_continue_shopping("Blue Top")
         products_page.click_add_to_cart_and_continue_shopping("Blue Top")
@@ -44,4 +43,16 @@ class TestProducts:
             actual_cart_table_rows, expected_cart_table_rows
         )
 
+        self.soft_assert.finalize()
+
+    def test_product_quantity_in_cart(self, setup_teardown_test):
+        products_page = setup_teardown_test
+        product = {"Item": "Blue Top", "Quantity": "5"}
+        product_details_page = products_page.click_view_product(product["Item"])
+        cart_page = product_details_page.enter_quantity_and_click_add_to_cart(
+            product["Quantity"]
+        )
+        product_row = cart_page.get_cart_table_row_data()[0]
+
+        self.soft_assert.assert_dict_contains(product_row, product)
         self.soft_assert.finalize()
