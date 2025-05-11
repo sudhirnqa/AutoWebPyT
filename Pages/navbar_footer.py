@@ -6,9 +6,11 @@ from Locators import (
     products_page_locators,
     home_page_locators,
     login_page_locators,
+    cart_page_locators,
 )
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
+from Pages.cart_page import CartPage
 from Pages.cases_page import TestCasesPage
 from Pages.products_page import ProductsPage
 
@@ -105,6 +107,9 @@ class NavbarFooter(BasePage):
 
     def click_cart_link(self):
         self.cart_link.click()
+        cart_page = CartPage(self.driver)
+        cart_page.wait_for_page_to_load(cart_page_locators.cart_page_header)
+        return cart_page
 
     def fill_subscription_email_and_click_subscription_btn(self, email):
         self.enter_subscribe_email_field(email)

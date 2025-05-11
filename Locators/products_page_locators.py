@@ -14,3 +14,5 @@ view_products = (
 )
 search_product_field = (By.ID, "search_product")
 search_btn = (By.ID, "submit_search")
+continue_shopping_btn = (By.XPATH, "//button[text()='Continue Shopping']")
+view_cart_link = (By.XPATH, "//a//u[text()='View Cart']")

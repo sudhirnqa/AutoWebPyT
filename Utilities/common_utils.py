@@ -95,7 +95,7 @@ def scroll_down_to_bottom(driver):
         last_height = driver.execute_script("return document.body.scrollHeight")
         while True:
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            sleep(2)  # Adjust the sleep time as needed
+            sleep(2)
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
                 log.info("Reached the bottom of the page.")

@@ -1,6 +1,11 @@
-from Locators import products_page_locators, product_details_page_locators
+from Locators import (
+    products_page_locators,
+    product_details_page_locators,
+    cart_page_locators,
+)
 from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
+from Pages.cart_page import CartPage
 from Pages.product_details_page import ProductDetailsPage
 
 
@@ -35,6 +40,23 @@ class ProductsPage(BasePage):
     @property
     def search_btn(self):
         return BaseElement(self.driver, products_page_locators.search_btn)
+
+    @property
+    def continue_shopping_btn(self):
+        return BaseElement(self.driver, products_page_locators.continue_shopping_btn)
+
+    @property
+    def view_cart_link(self):
+        return BaseElement(self.driver, products_page_locators.view_cart_link)
+
+    def click_continue_shopping_btn(self):
+        self.continue_shopping_btn.click()
+
+    def click_view_cart_link(self):
+        self.view_cart_link.click()
+        cart_page = CartPage(self.driver)
+        cart_page.wait_for_page_to_load(cart_page_locators.cart_page_header)
+        return cart_page
 
     def enter_search_product_name(self, product_name):
         self.search_product_field.enter_text(product_name)
@@ -76,3 +98,14 @@ class ProductsPage(BasePage):
             for i in range(len(product_names)):
                 products[product_names[i].strip()] = product_prices[i].strip()
         return products
+
+    def click_add_to_cart_and_continue_shopping(self, product_name):
+        product_index = self.get_index_of_product(product_name)
+        self.product_add_to_cart_buttons.click_element_by_index(product_index)
+        self.click_continue_shopping_btn()
+
+    def click_add_to_cart_and_view_cart(self, product_name):
+        product_index = self.get_index_of_product(product_name)
+        self.product_add_to_cart_buttons.click_element_by_index(product_index)
+        cart_page = self.click_view_cart_link()
+        return cart_page

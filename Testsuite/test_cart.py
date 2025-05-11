@@ -1,0 +1,47 @@
+from pytest import fixture, mark
+
+from Helpers.common_file_helpers import load_data_from_json
+from Locators import navbar_footer_locators
+from Pages.navbar_footer import NavbarFooter
+
+
+@mark.usefixtures("setup_teardown_class")
+class TestProducts:
+    """Test class for subscription functionality."""
+
+    @fixture(autouse=True)
+    def setup_teardown_test(self):
+        nav_footer = NavbarFooter(self.driver)
+        nav_footer.wait_for_page_to_load(navbar_footer_locators.subscribe_email_field)
+        products_page = nav_footer.click_products_link()
+        # test_data = data_faker()
+        yield products_page
+        self.driver.delete_all_cookies()
+
+    def test_subscription_on_home_page(self, setup_teardown_test):
+        products_page = setup_teardown_test
+        products_page.click_add_to_cart_and_continue_shopping("Blue Top")
+        products_page.click_add_to_cart_and_continue_shopping("Blue Top")
+        products_page.click_add_to_cart_and_continue_shopping("Men Tshirt")
+        cart_page = products_page.click_add_to_cart_and_view_cart("Men Tshirt")
+        expected_cart_table_headers = load_data_from_json(
+            ".//Testdata//cart_data.json"
+        )["table_headers"]
+        expected_cart_table_rows = load_data_from_json(".//Testdata//cart_data.json")[
+            "table_rows"
+        ]
+        actual_cart_table_headers = cart_page.get_cart_table_headers()
+
+        self.soft_assert.assert_list_equals(
+            actual_cart_table_headers, expected_cart_table_headers
+        )
+
+        items_count = cart_page.get_count_of_unique_items_in_cart()
+        self.soft_assert.assert_equals(2, items_count)
+        actual_cart_table_rows = cart_page.get_cart_table_row_data()
+
+        self.soft_assert.assert_list_equals(
+            actual_cart_table_rows, expected_cart_table_rows
+        )
+
+        self.soft_assert.finalize()

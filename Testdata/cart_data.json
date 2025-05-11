@@ -1,0 +1,25 @@
+{
+  "table_headers": [
+    "Item",
+    "Description",
+    "Price",
+    "Quantity",
+    "Total"
+  ],
+  "table_rows": [
+    {
+      "Item": "Blue Top",
+      "Description": "Women > Tops",
+      "Price": "Rs. 500",
+      "Quantity": "2",
+      "Total": "Rs. 1000"
+    },
+    {
+      "Item": "Men Tshirt",
+      "Description": "Men > Tshirts",
+      "Price": "Rs. 400",
+      "Quantity": "2",
+      "Total": "Rs. 800"
+    }
+  ]
+}
