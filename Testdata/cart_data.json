@@ -21,5 +21,30 @@
       "Quantity": "2",
       "Total": "Rs. 800"
     }
+  ],
+  "expected_table_rows_before_delete": [
+    {
+      "Item": "Blue Top",
+      "Description": "Women > Tops",
+      "Price": "Rs. 500",
+      "Quantity": "1",
+      "Total": "Rs. 500"
+    },
+    {
+      "Item": "Men Tshirt",
+      "Description": "Men > Tshirts",
+      "Price": "Rs. 400",
+      "Quantity": "1",
+      "Total": "Rs. 400"
+    }
+  ],
+  "expected_table_rows_after_delete": [
+    {
+      "Item": "Men Tshirt",
+      "Description": "Men > Tshirts",
+      "Price": "Rs. 400",
+      "Quantity": "1",
+      "Total": "Rs. 400"
+    }
   ]
 }

@@ -5,6 +5,7 @@ from Locators import navbar_footer_locators
 from Pages.navbar_footer import NavbarFooter
 
 
+@mark.wip
 @mark.usefixtures("setup_teardown_class")
 class TestCart:
     """Test class for cart functionality."""
@@ -42,6 +43,40 @@ class TestCart:
         self.soft_assert.assert_list_equals(
             actual_cart_table_rows, expected_cart_table_rows
         )
+
+        self.soft_assert.finalize()
+
+    def test_remove_product_in_cart(self, setup_teardown_test):
+        products_page = setup_teardown_test
+        products_page.click_add_to_cart_and_continue_shopping("Blue Top")
+        cart_page = products_page.click_add_to_cart_and_view_cart("Men Tshirt")
+        count_of_rows = cart_page.get_count_of_unique_items_in_cart()
+        self.soft_assert.assert_equals(count_of_rows, 2)
+
+        expected_table_rows_before_delete = load_data_from_json(
+            ".//Testdata//cart_data.json"
+        )["expected_table_rows_before_delete"]
+        actual_table_rows_before_delete = cart_page.get_cart_table_row_data()
+        self.soft_assert.assert_list_equals(
+            actual_table_rows_before_delete, expected_table_rows_before_delete
+        )
+
+        expected_table_rows_after_delete = load_data_from_json(
+            ".//Testdata//cart_data.json"
+        )["expected_table_rows_after_delete"]
+        cart_page.click_cart_item_delete_field_by_product_name("Blue Top")
+        actual_table_rows_after_delete = cart_page.get_cart_table_row_data()
+        self.soft_assert.assert_list_equals(
+            actual_table_rows_after_delete, expected_table_rows_after_delete
+        )
+
+        cart_page.click_cart_item_delete_field_by_product_name("Men Tshirt")
+
+        actual_table_rows_after_delete = cart_page.get_cart_table_row_data()
+        self.soft_assert.assert_list_equals(actual_table_rows_after_delete, [])
+
+        cart_message = cart_page.get_cart_empty_message()
+        self.soft_assert.assert_string_equals(cart_message, "Cart is empty!")
 
         self.soft_assert.finalize()
 

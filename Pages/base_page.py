@@ -33,6 +33,11 @@ class BasePage(object):
         log.info(f"Page loaded and found the element with the locator: {locator}")
         return element
 
+    def wait_for_element_to_get_disappeared_from_page(self, element):
+        log = custom_logger()
+        self.wait.until(ec.invisibility_of_element(element))
+        log.info(f"Element disappeared: {element}")
+
     def accept_alert(self):
         log = custom_logger()
         try:
@@ -125,4 +130,4 @@ class BasePage(object):
         finally:
             windows = self.driver.window_handles
             log.info(f"Windows count: {len(windows)}")
-            return len(windows)
+        return len(windows)
