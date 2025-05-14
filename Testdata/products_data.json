@@ -117,5 +117,89 @@
         "Sleeveless Unicorn Print Fit & Flare Net Dress - Multi": "Rs. 1100"
       }
     ]
+  ],
+  "product_brands": [
+    [
+      "Polo",
+      "BRAND - POLO PRODUCTS",
+      {
+        "Blue Top": "Rs. 500",
+        "Fancy Green Top": "Rs. 700",
+        "Green Side Placket Detail T-Shirt": "Rs. 1000",
+        "Premium Polo T-Shirts": "Rs. 1500",
+        "Soft Stretch Jeans": "Rs. 799",
+        "Grunt Blue Slim Fit Jeans": "Rs. 1400"
+      }
+    ],
+    [
+      "H&M",
+      "BRAND - H&M PRODUCTS",
+      {
+        "Men Tshirt": "Rs. 400",
+        "Summer White Top": "Rs. 400",
+        "Pure Cotton V-Neck T-Shirt": "Rs. 1299",
+        "Pure Cotton Neon Green Tshirt": "Rs. 850",
+        "Regular Fit Straight Jeans": "Rs. 1200"
+      }
+    ],
+    [
+      "Madame",
+      "BRAND - MADAME PRODUCTS",
+      {
+        "Sleeveless Dress": "Rs. 1000",
+        "Stylish Dress": "Rs. 1500",
+        "Madame Top For Women": "Rs. 1000",
+        "Rose Pink Embroidered Maxi Dress": "Rs. 2300",
+        "Beautiful Peacock Blue Cotton Linen Saree": "Rs. 5000"
+      }
+    ],
+    [
+      "Mast & Harbour",
+      "BRAND - MAST & HARBOUR PRODUCTS",
+      {
+        "Winter Top": "Rs. 600",
+        "Lace Top For Women": "Rs. 1400",
+        "GRAPHIC DESIGN MEN T SHIRT - BLUET-shirt": "Rs. 1389"
+      }
+    ],
+    [
+      "Babyhug",
+      "BRAND - BABYHUG PRODUCTS",
+      {
+        "Sleeves Printed Top - White": "Rs. 499",
+        "Half Sleeves Top Schiffli Detailing - Pink": "Rs. 359",
+        "Printed Off Shoulder Top - White": "Rs. 315",
+        "Sleeves Top and Short - Blue & Pink": "Rs. 478"
+      }
+    ],
+    [
+      "Allen Solly Junior",
+      "BRAND - ALLEN SOLLY JUNIOR PRODUCTS",
+      {
+        "Frozen Tops For Kids": "Rs. 278",
+        "Sleeveless Unicorn Patch Gown - Pink": "Rs. 1050",
+        "Colour Blocked Shirt – Sky Blue": "Rs. 849"
+      }
+    ],
+    [
+      "Kookie Kids",
+      "BRAND - KOOKIE KIDS PRODUCTS",
+      {
+        "Full Sleeves Top Cherry - Pink": "Rs. 679",
+        "Little Girls Mr. Panda Shirt": "Rs. 1200",
+        "Cotton Mull Embroidered Dress": "Rs. 1190"
+      }
+    ],
+    [
+      "Biba",
+      "BRAND - BIBA PRODUCTS",
+      {
+        "Blue Cotton Indie Mickey Dress": "Rs. 1530",
+        "Long Maxi Tulle Fancy Dress Up Outfits -Pink": "Rs. 1600",
+        "Sleeveless Unicorn Print Fit & Flare Net Dress - Multi": "Rs. 1100",
+        "Cotton Silk Hand Block Print Saree": "Rs. 3000",
+        "Rust Red Linen Saree": "Rs. 3500"
+      }
+    ]
   ]
 }

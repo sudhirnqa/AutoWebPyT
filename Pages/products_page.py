@@ -182,3 +182,119 @@ class ProductsPage(BasePage):
 
     def click_category_kids_topsshirts(self):
         self.category_kids_topsshirts.click()
+
+    @property
+    def polo_brand(self):
+        return BaseElement(self.driver, products_page_locators.polo_brand)
+
+    def click_polo_brand(self):
+        self.polo_brand.click()
+
+    @property
+    def hm_brand(self):
+        return BaseElement(self.driver, products_page_locators.hm_brand)
+
+    def click_hm_brand(self):
+        self.hm_brand.click()
+
+    @property
+    def madame_brand(self):
+        return BaseElement(self.driver, products_page_locators.madame_brand)
+
+    def click_madame_brand(self):
+        self.madame_brand.click()
+
+    @property
+    def mast_harbour_brand(self):
+        return BaseElement(self.driver, products_page_locators.mast_harbour_brand)
+
+    def click_mast_harbour_brand(self):
+        self.mast_harbour_brand.click()
+
+    @property
+    def baby_hug_brand(self):
+        return BaseElement(self.driver, products_page_locators.baby_hug_brand)
+
+    def click_baby_hug_brand(self):
+        self.baby_hug_brand.click()
+
+    @property
+    def allen_solly_junior_brand(self):
+        return BaseElement(self.driver, products_page_locators.allen_solly_junior_brand)
+
+    def click_allen_solly_junior_brand(self):
+        self.allen_solly_junior_brand.click()
+
+    @property
+    def kookie_kids_brand(self):
+        return BaseElement(self.driver, products_page_locators.kookie_kids_brand)
+
+    def click_kookie_kids_brand(self):
+        self.kookie_kids_brand.click()
+
+    @property
+    def biba_brand(self):
+        return BaseElement(self.driver, products_page_locators.biba_brand)
+
+    def click_biba_brand(self):
+        self.biba_brand.click()
+
+    @property
+    def polo_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.polo_brand_stock)
+
+    def get_polo_brand_stock(self):
+        return int(self.polo_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def hm_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.hm_brand_stock)
+
+    def get_hm_brand_stock(self):
+        return int(self.hm_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def madame_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.madame_brand_stock)
+
+    def get_madame_brand_stock(self):
+        return int(self.madame_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def mast_harbour_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.mast_harbour_brand_stock)
+
+    def get_mast_harbour_brand_stock(self):
+        return int(self.mast_harbour_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def baby_hug_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.baby_hug_brand_stock)
+
+    def get_baby_hug_brand_stock(self):
+        return int(self.baby_hug_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def allen_solly_junior_brand_stock(self):
+        return BaseElement(
+            self.driver, products_page_locators.allen_solly_junior_brand_stock
+        )
+
+    def get_allen_solly_junior_brand_stock(self):
+        return int(
+            self.allen_solly_junior_brand_stock.text.replace("(", "").replace(")", "")
+        )
+
+    @property
+    def kookie_kids_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.kookie_kids_brand_stock)
+
+    def get_kookie_kids_brand_stock(self):
+        return int(self.kookie_kids_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def biba_brand_stock(self):
+        return BaseElement(self.driver, products_page_locators.biba_brand_stock)
+
+    def get_biba_brand_stock(self):
+        return int(self.biba_brand_stock.text.replace("(", "").replace(")", ""))

@@ -103,3 +103,69 @@ class TestProducts:
         self.soft_assert.assert_dict_equals(products, expected_products)
 
         self.soft_assert.finalize()
+
+    @mark.parametrize(
+        "brand, expected_product_page_header, expected_products",
+        load_data_from_json(".//Testdata//products_data.json")["product_brands"],
+    )
+    def test_product_by_its_brand(
+        self,
+        brand,
+        expected_product_page_header,
+        expected_products,
+        setup_teardown_test,
+    ):
+        product_page = setup_teardown_test
+        product_header = product_page.get_products_page_header()
+
+        self.soft_assert.assert_string_contains(product_header, "ALL PRODUCTS")
+
+        if brand not in [
+            "Polo",
+            "H&M",
+            "Madame",
+            "Mast & Harbour",
+            "Babyhug",
+            "Allen Solly Junior",
+            "Kookie Kids",
+            "Biba",
+        ]:
+            pytest.fail("Data Error: Invalid category")
+
+        if brand == "Polo":
+            product_page.click_polo_brand()
+            stock = product_page.get_polo_brand_stock()
+        elif brand == "H&M":
+            product_page.click_hm_brand()
+            stock = product_page.get_hm_brand_stock()
+        elif brand == "Madame":
+            product_page.click_madame_brand()
+            stock = product_page.get_madame_brand_stock()
+        elif brand == "Mast & Harbour":
+            product_page.click_mast_harbour_brand()
+            stock = product_page.get_mast_harbour_brand_stock()
+        elif brand == "Babyhug":
+            product_page.click_baby_hug_brand()
+            stock = product_page.get_baby_hug_brand_stock()
+        elif brand == "Allen Solly Junior":
+            product_page.click_allen_solly_junior_brand()
+            stock = product_page.get_allen_solly_junior_brand_stock()
+        elif brand == "Kookie Kids":
+            product_page.click_kookie_kids_brand()
+            stock = product_page.get_kookie_kids_brand_stock()
+        elif brand == "Biba":
+            product_page.click_biba_brand()
+            stock = product_page.get_biba_brand_stock()
+
+        product_header = product_page.get_products_page_header()
+        self.soft_assert.assert_string_equals(
+            product_header, expected_product_page_header
+        )
+
+        products = product_page.get_products_as_dict()
+        self.soft_assert.assert_dict_equals(products, expected_products)
+
+        actual_stock = len(products)
+        self.soft_assert.assert_equals(actual_stock, stock)
+
+        self.soft_assert.finalize()
