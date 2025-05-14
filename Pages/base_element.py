@@ -155,7 +155,7 @@ class BaseElement(object):
     @property
     def text(self):
         log = custom_logger()
-        text_value = self.element.text
+        text_value = self.element.text.replace(" " * 2, " ")
         if text_value:
             log.info(f"Text found: '{text_value}' from element: {self.locator}")
         else:

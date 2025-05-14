@@ -105,3 +105,80 @@ class ProductsPage(BasePage):
         self.product_add_to_cart_buttons.click_element_by_index(product_index)
         cart_page = self.click_view_cart_link()
         return cart_page
+
+    @property
+    def category_women(self):
+        return BaseElement(self.driver, products_page_locators.category_women)
+
+    def click_category_women(self):
+        self.category_women.click()
+
+    @property
+    def category_women_dress(self):
+        return BaseElement(self.driver, products_page_locators.category_women_dress)
+
+    def click_category_women_dress(self):
+        self.category_women_dress.click()
+
+    @property
+    def category_men(self):
+        return BaseElement(self.driver, products_page_locators.category_men)
+
+    def click_category_men(self):
+        self.category_men.click()
+
+    @property
+    def category_men_jeans(self):
+        return BaseElement(self.driver, products_page_locators.category_men_jeans)
+
+    def click_category_men_jeans(self):
+        self.category_men_jeans.click()
+
+    @property
+    def category_kids(self):
+        return BaseElement(self.driver, products_page_locators.category_kids)
+
+    def click_category_kids(self):
+        self.category_kids.click()
+
+    @property
+    def category_kids_dress(self):
+        return BaseElement(self.driver, products_page_locators.category_kids_dress)
+
+    def click_category_kids_dress(self):
+        self.category_kids_dress.click()
+
+    @property
+    def products_page_header(self):
+        return BaseElement(self.driver, products_page_locators.products_page_header)
+
+    def get_products_page_header(self):
+        return self.products_page_header.text
+
+    @property
+    def category_women_tops(self):
+        return BaseElement(self.driver, products_page_locators.category_women_tops)
+
+    def click_category_women_tops(self):
+        self.category_women_tops.click()
+
+    @property
+    def category_women_saree(self):
+        return BaseElement(self.driver, products_page_locators.category_women_saree)
+
+    def click_category_women_saree(self):
+        self.category_women_saree.click()
+
+    @property
+    def category_men_tshirts(self):
+        return BaseElement(self.driver, products_page_locators.category_men_tshirts)
+
+    def click_category_men_tshirts(self):
+        self.category_men_tshirts.click()
+
+    @property
+    def category_kids_topsshirts(self):
+        return BaseElement(self.driver, products_page_locators.category_kids_topsshirts)
+
+    def click_category_kids_topsshirts(self):
+        self.category_kids_topsshirts.click()

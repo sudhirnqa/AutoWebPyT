@@ -5,7 +5,6 @@ from Locators import navbar_footer_locators
 from Pages.navbar_footer import NavbarFooter
 
 
-@mark.wip
 @mark.usefixtures("setup_teardown_class")
 class TestCart:
     """Test class for cart functionality."""

@@ -1,3 +1,4 @@
+import pytest
 from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
@@ -50,4 +51,55 @@ class TestProducts:
         product_page.search_product(search_term)
         actual_search_result = product_page.get_product_names()
         self.soft_assert.assert_dict_equals(actual_search_result, search_result)
+        self.soft_assert.finalize()
+
+    @mark.parametrize(
+        "category, sub_category, expected_product_page_header, expected_products",
+        load_data_from_json(".//Testdata//products_data.json")["product_categories"],
+    )
+    def test_product_by_its_category(
+        self,
+        category,
+        sub_category,
+        expected_product_page_header,
+        expected_products,
+        setup_teardown_test,
+    ):
+        product_page = setup_teardown_test
+        product_header = product_page.get_products_page_header()
+
+        self.soft_assert.assert_string_contains(product_header, "ALL PRODUCTS")
+
+        if category not in ["Women", "Men", "Kids"]:
+            pytest.fail("Data Error: Invalid category")
+
+        if category == "Women":
+            product_page.click_category_women()
+            if sub_category == "Dress":
+                product_page.click_category_women_dress()
+            elif sub_category == "Tops":
+                product_page.click_category_women_tops()
+            elif sub_category == "Saree":
+                product_page.click_category_women_saree()
+        elif category == "Men":
+            product_page.click_category_men()
+            if sub_category == "Jeans":
+                product_page.click_category_men_jeans()
+            elif sub_category == "Tshirts":
+                product_page.click_category_men_tshirts()
+        elif category == "Kids":
+            product_page.click_category_kids()
+            if sub_category == "Dress":
+                product_page.click_category_kids_dress()
+            elif sub_category == "TopsShirts ":
+                product_page.click_category_kids_topsshirts()
+
+        product_header = product_page.get_products_page_header()
+        self.soft_assert.assert_string_equals(
+            product_header, expected_product_page_header
+        )
+
+        products = product_page.get_products_as_dict()
+        self.soft_assert.assert_dict_equals(products, expected_products)
+
         self.soft_assert.finalize()

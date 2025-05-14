@@ -82,5 +82,40 @@
         "GRAPHIC DESIGN MEN T SHIRT - BLUE"
       ]
     }
+  ],
+  "product_categories": [
+    [
+      "Women",
+      "Dress",
+      "WOMEN - DRESS PRODUCTS",
+      {
+        "Sleeveless Dress": "Rs. 1000",
+        "Stylish Dress": "Rs. 1500",
+        "Rose Pink Embroidered Maxi Dress": "Rs. 2300"
+      }
+    ],
+    [
+      "Men",
+      "Jeans",
+      "MEN - JEANS PRODUCTS",
+      {
+        "Soft Stretch Jeans": "Rs. 799",
+        "Regular Fit Straight Jeans": "Rs. 1200",
+        "Grunt Blue Slim Fit Jeans": "Rs. 1400"
+      }
+    ],
+    [
+      "Kids",
+      "Dress",
+      "KIDS - DRESS PRODUCTS",
+      {
+        "Sleeves Top and Short - Blue & Pink": "Rs. 478",
+        "Sleeveless Unicorn Patch Gown - Pink": "Rs. 1050",
+        "Cotton Mull Embroidered Dress": "Rs. 1190",
+        "Blue Cotton Indie Mickey Dress": "Rs. 1530",
+        "Long Maxi Tulle Fancy Dress Up Outfits -Pink": "Rs. 1600",
+        "Sleeveless Unicorn Print Fit & Flare Net Dress - Multi": "Rs. 1100"
+      }
+    ]
   ]
 }
