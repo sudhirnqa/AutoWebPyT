@@ -12,10 +12,21 @@ from Pages.base_element import BaseElement
 from Pages.base_page import BasePage
 from Pages.cart_page import CartPage
 from Pages.cases_page import TestCasesPage
+from Pages.login_page import LoginPage
 from Pages.products_page import ProductsPage
 
 
 class NavbarFooter(BasePage):
+
+    @property
+    def login_signup_link(self):
+        return BaseElement(self.driver, navbar_footer_locators.login_signup_link)
+
+    def click_login_signup_link(self):
+        self.login_signup_link.click()
+        login_page = LoginPage(self.driver)
+        login_page.wait_for_page_to_load(login_page_locators.login_form_header)
+        return login_page
 
     @property
     def test_cases_link(self):
