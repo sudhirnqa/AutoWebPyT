@@ -99,37 +99,6 @@ class TestCart:
         self.soft_assert.assert_dict_contains(product_row, product)
         self.soft_assert.finalize()
 
-    # def test_Search_products_and_verify_cart_after_login(self, setup_teardown_test):
-    #     products_page = setup_teardown_test
-    #     products_page.enter_search_product_name("")
-    #     products_page.click_add_to_cart_and_continue_shopping("Blue Top")
-    #     products_page.click_add_to_cart_and_continue_shopping("Blue Top")
-    #     products_page.click_add_to_cart_and_continue_shopping("Men Tshirt")
-    #     products_page.click_add_to_cart_and_continue_shopping("Men Tshirt")
-    #     cart_page = products_page.click_add_to_cart_and_view_cart("Men Tshirt")
-    #     expected_cart_table_headers = load_data_from_json(
-    #         ".//Testdata//cart_data.json"
-    #     )["table_headers"]
-    #     expected_cart_table_rows = load_data_from_json(".//Testdata//cart_data.json")[
-    #         "table_rows"
-    #     ]
-    #     actual_cart_table_headers = cart_page.get_cart_table_headers()
-    #
-    #     self.soft_assert.assert_list_equals(
-    #         actual_cart_table_headers, expected_cart_table_headers
-    #     )
-    #
-    #     items_count = cart_page.get_count_of_unique_items_in_cart()
-    #     self.soft_assert.assert_equals(2, items_count)
-    #     actual_cart_table_rows = cart_page.get_cart_table_row_data()
-    #
-    #     self.soft_assert.assert_list_equals(
-    #         actual_cart_table_rows, expected_cart_table_rows
-    #     )
-    #
-    #     self.soft_assert.finalize()
-
-    @mark.wip
     def test_search_products_and_verify_cart_after_login(self, setup_teardown_test):
         product_page, nav_footer = setup_teardown_test
         product_to_search = self.product_to_search_list[0]

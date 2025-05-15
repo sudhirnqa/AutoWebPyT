@@ -93,3 +93,51 @@ class ProductDetailsPage(BasePage):
         self.click_add_to_cart_btn()
         cart_page = self.click_view_cart_link()
         return cart_page
+
+    @property
+    def review_name_field(self):
+        return BaseElement(self.driver, product_details_page_locators.review_name_field)
+
+    def enter_review_name_field(self, name):
+        self.review_name_field.enter_text(name)
+
+    @property
+    def review_email_field(self):
+        return BaseElement(
+            self.driver, product_details_page_locators.review_email_field
+        )
+
+    def enter_review_email_field(self, email):
+        self.review_email_field.enter_text(email)
+
+    @property
+    def review_message_textarea(self):
+        return BaseElement(
+            self.driver, product_details_page_locators.review_message_textarea
+        )
+
+    def enter_review_message_textarea(self, message):
+        self.review_message_textarea.enter_text(message)
+
+    @property
+    def submit_review_btn(self):
+        return BaseElement(self.driver, product_details_page_locators.submit_review_btn)
+
+    def click_submit_review_btn(self):
+        self.submit_review_btn.click()
+
+    @property
+    def review_success_message(self):
+        return BaseElement(
+            self.driver, product_details_page_locators.review_success_message
+        )
+
+    def get_review_success_message(self):
+        return self.review_success_message.text
+
+    def submit_review(self, name, email, message):
+        self.enter_review_name_field(name)
+        self.enter_review_email_field(email)
+        self.enter_review_message_textarea(message)
+        self.click_submit_review_btn()
+        return self.get_review_success_message()

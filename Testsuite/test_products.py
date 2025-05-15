@@ -3,6 +3,7 @@ from pytest import fixture, mark
 
 from Helpers.common_file_helpers import load_data_from_json
 from Pages.navbar_footer import NavbarFooter
+from Utilities.common_utils import data_faker
 
 
 @mark.usefixtures("setup_teardown_class")
@@ -168,4 +169,18 @@ class TestProducts:
         actual_stock = len(products)
         self.soft_assert.assert_equals(actual_stock, stock)
 
+        self.soft_assert.finalize()
+
+    def test_the_user_able_to_review_a_product(self, setup_teardown_test):
+        product = load_data_from_json("./Testdata/products_data.json")["product"]
+        product_page = setup_teardown_test
+        test_data = data_faker()
+        product_details_page = product_page.click_view_product(product["name"])
+        product_detail = product_details_page.get_product_details()
+        self.soft_assert.assert_dict_equals(product_detail, product)
+        product_details_page.submit_review(
+            test_data["name"], test_data["email"], test_data["text"]
+        )
+        success_msg = product_details_page.get_review_success_message()
+        self.soft_assert.assert_string_equals(success_msg, "Thank you for your review.")
         self.soft_assert.finalize()

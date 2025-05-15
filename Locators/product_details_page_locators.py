@@ -21,3 +21,8 @@ product_brand = (
 quantity_field = (By.ID, "quantity")
 add_to_cart_btn = (By.XPATH, "//button[@type='button']")
 view_cart_link = (By.XPATH, "//a//u[text()='View Cart']")
+review_name_field = (By.ID, "name")
+review_email_field = (By.ID, "email")
+review_message_textarea = (By.NAME, "review")
+submit_review_btn = (By.ID, "button-review")
+review_success_message = (By.XPATH, "//div[@class = 'alert-success alert']//span")
