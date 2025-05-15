@@ -43,14 +43,14 @@ class TestProducts:
         self.soft_assert.assert_dict_equals(product_detail, product)
         self.soft_assert.finalize()
 
-    @mark.parametrize("search_term, search_result", product_to_search)
+    @mark.parametrize("search_term, search_results", product_to_search)
     def test_product_search_results(
-        self, search_term, search_result, setup_teardown_test
+        self, search_term, search_results, setup_teardown_test
     ):
         product_page = setup_teardown_test
         product_page.search_product(search_term)
-        actual_search_result = product_page.get_product_names()
-        self.soft_assert.assert_dict_equals(actual_search_result, search_result)
+        actual_search_results = product_page.get_product_names()
+        self.soft_assert.assert_dict_equals(actual_search_results, search_results)
         self.soft_assert.finalize()
 
     @mark.parametrize(

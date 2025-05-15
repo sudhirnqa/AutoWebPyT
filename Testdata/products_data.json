@@ -45,15 +45,16 @@
   },
   "product_to_search": [
     {
-      "search_term": "fancy",
-      "search_result": [
-        "Fancy Green Top",
-        "Long Maxi Tulle Fancy Dress Up Outfits -Pink"
+      "search_term": "jean",
+      "search_results": [
+        "Soft Stretch Jeans",
+        "Regular Fit Straight Jeans",
+        "Grunt Blue Slim Fit Jeans"
       ]
     },
     {
       "search_term": "top",
-      "search_result": [
+      "search_results": [
         "Blue Top",
         "Winter Top",
         "Summer White Top",
@@ -72,7 +73,7 @@
     },
     {
       "search_term": "blue",
-      "search_result": [
+      "search_results": [
         "Blue Top",
         "Sleeves Top and Short - Blue & Pink",
         "Blue Cotton Indie Mickey Dress",
@@ -159,7 +160,7 @@
       {
         "Winter Top": "Rs. 600",
         "Lace Top For Women": "Rs. 1400",
-        "GRAPHIC DESIGN MEN T SHIRT - BLUET-shirt": "Rs. 1389"
+        "GRAPHIC DESIGN MEN T SHIRT - BLUE": "Rs. 1389"
       }
     ],
     [

@@ -294,7 +294,7 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if expected not in actual:
+        if not all([ele in expected for ele in actual]):
             error_msg = (
                 f"Assertion Failed: Expected list '{actual}' to contain '{expected}', "
                 f"but it did not."
@@ -316,7 +316,7 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if unexpected in actual:
+        if all([ele in unexpected for ele in actual]):
             error_msg = (
                 f"Assertion Failed: Expected list '{actual}' not to contain '{unexpected}', "
                 f"but it did."
@@ -866,7 +866,7 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if expected not in actual:
+        if not all([ele in expected for ele in actual]):
             error_msg = (
                 f"Assertion Failed: Expected tuple '{actual}' to contain '{expected}', "
                 f"but it did not."
@@ -888,7 +888,7 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if unexpected in actual:
+        if not all([ele in unexpected for ele in actual]):
             error_msg = (
                 f"Assertion Failed: Expected tuple '{actual}' not to contain '{unexpected}', "
                 f"but it did."
@@ -946,7 +946,9 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if not all(item in actual.items() for item in expected.items()):
+        if not all(
+            expected_item in actual.items() for expected_item in expected.items()
+        ):
             error_msg = (
                 f"Assertion Failed: Expected dictionary '{actual}' to contain '{expected}', "
                 f"but it did not."
@@ -968,7 +970,7 @@ class CustomAssert:
             message (str, optional): A custom message to include on failure. Defaults to "".
         """
         log = custom_logger()
-        if any(
+        if all(
             unexpected_item in actual.items() for unexpected_item in unexpected.items()
         ):
             error_msg = (
