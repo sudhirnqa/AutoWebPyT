@@ -124,9 +124,6 @@ def pytest_runtest_makereport(item, call):
 def pytest_configure(config):
     """Configure pytest to generate reports and screenshots."""
     log = custom_logger()
-    log.info("".center(100, "-"))
-    log.info("Initializing Test".center(100, "-"))
-    log.info("".center(100, "-"))
     log.info(f"Configuring pytest: {config}")
     global screenshot
     now = datetime.now()

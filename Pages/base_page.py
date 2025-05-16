@@ -1,4 +1,10 @@
-from selenium.common import NoAlertPresentException, NoSuchWindowException
+from time import sleep
+
+from selenium.common import (
+    NoAlertPresentException,
+    NoSuchWindowException,
+    JavascriptException,
+)
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -131,3 +137,30 @@ class BasePage(object):
             windows = self.driver.window_handles
             log.info(f"Windows count: {len(windows)}")
         return len(windows)
+
+    def scroll_down_to_bottom(self, seconds_to_wait=1):
+        """Scroll down to the bottom of the page. Load the page if not loaded."""
+        log = custom_logger()
+        try:
+            last_height = self.driver.execute_script(
+                "return document.body.scrollHeight"
+            )
+            while True:
+                self.driver.execute_script(
+                    "window.scrollTo(0, document.body.scrollHeight);"
+                )
+                sleep(seconds_to_wait)
+                new_height = self.driver.execute_script(
+                    "return document.body.scrollHeight"
+                )
+                if new_height == last_height:
+                    log.info("Reached the bottom of the page.")
+                    break
+                last_height = new_height
+                log.info(f"Scrolling down... New height: {new_height}")
+        except JavascriptException as e:
+            log.error(f"JavaScript error while scrolling: {e}")
+            raise
+        except Exception as e:
+            log.error(f"Error scrolling down: {e}")
+            raise
