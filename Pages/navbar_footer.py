@@ -91,6 +91,9 @@ class NavbarFooter(BasePage):
     def enter_subscribe_email_field(self, email):
         self.subscribe_email_field.enter_text(email)
 
+    def is_subscribe_email_field_displayed(self):
+        return self.subscribe_email_field.is_element_displayed()
+
     def click_subscribe_btn(self):
         self.subscribe_btn.click()
 
@@ -130,3 +133,10 @@ class NavbarFooter(BasePage):
         else:
             # invalid subscription email
             return None
+
+    @property
+    def scroll_up_link(self):
+        return BaseElement(self.driver, navbar_footer_locators.scroll_up_link)
+
+    def click_scroll_up_link(self):
+        self.scroll_up_link.click()

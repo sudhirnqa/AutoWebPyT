@@ -22,11 +22,11 @@ class TestProducts:
     def setup_teardown_test(self):
         nav_footer = NavbarFooter(self.driver)
         product_page = nav_footer.click_products_link()
-        yield product_page
+        yield product_page, nav_footer
         self.driver.delete_all_cookies()
 
     def test_product_listing(self, setup_teardown_test):
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         actual_products = product_page.get_products_as_dict()
         expected_products = load_data_from_json(".//Testdata//products_data.json")[
             "all_products"
@@ -38,7 +38,7 @@ class TestProducts:
         self, setup_teardown_test
     ):
         product = load_data_from_json("./Testdata/products_data.json")["product"]
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         product_details_page = product_page.click_view_product(product["name"])
         product_detail = product_details_page.get_product_details()
         self.soft_assert.assert_dict_equals(product_detail, product)
@@ -48,7 +48,7 @@ class TestProducts:
     def test_product_search_results(
         self, search_term, search_results, setup_teardown_test
     ):
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         product_page.search_product(search_term)
         actual_search_results = product_page.get_product_names()
         self.soft_assert.assert_dict_equals(actual_search_results, search_results)
@@ -66,7 +66,7 @@ class TestProducts:
         expected_products,
         setup_teardown_test,
     ):
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         product_header = product_page.get_products_page_header()
 
         self.soft_assert.assert_string_contains(product_header, "ALL PRODUCTS")
@@ -116,7 +116,7 @@ class TestProducts:
         expected_products,
         setup_teardown_test,
     ):
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         product_header = product_page.get_products_page_header()
 
         self.soft_assert.assert_string_contains(product_header, "ALL PRODUCTS")
@@ -173,7 +173,7 @@ class TestProducts:
 
     def test_the_user_able_to_review_a_product(self, setup_teardown_test):
         product = load_data_from_json("./Testdata/products_data.json")["product"]
-        product_page = setup_teardown_test
+        product_page = setup_teardown_test[0]
         test_data = data_faker()
         product_details_page = product_page.click_view_product(product["name"])
         product_detail = product_details_page.get_product_details()
@@ -183,4 +183,14 @@ class TestProducts:
         )
         success_msg = product_details_page.get_review_success_message()
         self.soft_assert.assert_string_equals(success_msg, "Thank you for your review.")
+        self.soft_assert.finalize()
+
+    def test_scroll_up_link_on_products_page(self, setup_teardown_test):
+        product_page, nav_footer = setup_teardown_test
+        product_page.scroll_down_to_bottom()
+        sub_email_displayed = nav_footer.is_subscribe_email_field_displayed()
+        self.soft_assert.assert_true(sub_email_displayed)
+        nav_footer.click_scroll_up_link()
+        sale_image_displayed = product_page.is_sale_image_displayed()
+        self.soft_assert.assert_true(sale_image_displayed)
         self.soft_assert.finalize()

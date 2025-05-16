@@ -298,3 +298,10 @@ class ProductsPage(BasePage):
 
     def get_biba_brand_stock(self):
         return int(self.biba_brand_stock.text.replace("(", "").replace(")", ""))
+
+    @property
+    def sale_image(self):
+        return BaseElement(self.driver, products_page_locators.sale_image)
+
+    def is_sale_image_displayed(self):
+        return self.sale_image.is_element_displayed()
